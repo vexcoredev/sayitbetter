@@ -201,7 +201,7 @@
           <article class="card feature">
             <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M9.5 10.5l1.8 1.8 3.4-3.6" class="accent"/></svg></div>
             <h3>Local-first, for a reason</h3>
-            <p>Your writing includes work email, private notes and half-formed thoughts. By default Say It Better runs on a local model via Ollama, so it doesn't need a trip to the cloud. Prefer OpenAI or Claude? Switch anytime.</p>
+            <p>Your writing includes work email, private notes and half-formed thoughts. By default the Mac app uses your Mac's built-in AI, so it doesn't need a trip to the cloud. Prefer OpenAI or Claude? Switch anytime.</p>
           </article>
           <article class="card feature">
             <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8V20h3.2l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.3-.5-.5-2.3z"/><path d="M17 3v3M20 5h-3" class="accent"/></svg></div>
@@ -336,16 +336,16 @@
         <div class="split-copy">
           <p class="kicker">05 Privacy</p>
           <h2>Your words stay on your Mac. <em>Unless you say otherwise.</em></h2>
-          <p class="sub">By default Say It Better talks to a model running locally through Ollama — no servers, no account, nothing sent over the network. Want a bigger model? Connect OpenAI or Claude with your own key. You choose, and you can switch anytime.</p>
+          <p class="sub">On the Mac, the built-in AI is Apple Intelligence: it runs on your Mac, so nothing is sent anywhere. No Apple Intelligence? Use a local model with Ollama, or connect OpenAI or Claude with your own key. You can switch anytime.</p>
           <ul class="checks">
-            <li>Local mode via <strong>Ollama</strong> — fully on-device</li>
+            <li><strong>Built-in AI</strong> (Apple Intelligence) or <strong>Ollama</strong>: fully on-device</li>
             <li><strong>OpenAI</strong> (sign in to pick up your key) or <strong>Anthropic’s Claude</strong></li>
             <li>Any <strong>OpenAI-compatible</strong> server: Groq, LM Studio, OpenRouter…</li>
             <li>Clipboard and screen context are <strong>off unless you turn them on</strong>; OCR runs locally</li>
           </ul>
           <p class="sub" id="privacy-web"><strong>In the web app</strong></p>
           <ul class="checks">
-            <li><strong>Built-in AI:</strong> your text is sent securely to get suggestions, then discarded. It’s never saved or seen by anyone.</li>
+            <li><strong>Built-in AI:</strong> runs on the Say It Better server. Your text is sent securely, then discarded. Never saved or seen by anyone.</li>
             <li><strong>On this device:</strong> runs in your browser. Nothing leaves your device.</li>
             <li>Your draft and settings are saved <strong>only in your browser</strong>.</li>
           </ul>
@@ -411,7 +411,7 @@
           <li class="card step">
             <span class="step-n">4</span>
             <h3>Pick local or cloud</h3>
-            <p>Use a local model with <a href="https://ollama.com" rel="noopener">Ollama</a> for full privacy, or sign in with OpenAI in a couple of clicks. Then just write.</p>
+            <p>It uses your Mac's built-in AI right away. No Apple Intelligence? Use a local model with <a href="https://ollama.com" rel="noopener">Ollama</a>, or sign in with OpenAI. Then just write.</p>
           </li>
         </ol>
       </div>
@@ -431,7 +431,7 @@
           </details>
           <details>
             <summary>Does my text leave my Mac?</summary>
-            <p>Not in local mode. With Ollama, the model runs on your machine and requests go to <code>localhost</code>. If you switch to OpenAI, Anthropic, or another server, the text you're writing — plus clipboard or screen context, if you've turned those on — is sent to that provider using your own key. Screen text is read with on-device OCR either way.</p>
+            <p>Not with the built-in AI or Ollama: the model runs on your Mac and nothing is sent over the network. If you switch to OpenAI, Anthropic, or another server, the text you're writing — plus clipboard or screen context, if you've turned those on — is sent to that provider using your own key. Screen text is read with on-device OCR either way.</p>
           </details>
           <details>
             <summary>Which models work?</summary>
@@ -447,7 +447,7 @@
           </details>
           <details>
             <summary>What do I need to run it?</summary>
-            <p>macOS 14 Sonoma or later. Apple Silicon is recommended, especially for local models. For local mode, install <a href="https://ollama.com" rel="noopener">Ollama</a> and pull a model. Say It Better itself is free.</p>
+            <p>macOS 14 Sonoma or later. Apple Silicon is recommended, especially for local models. The built-in AI needs Apple Intelligence (macOS 26); otherwise install <a href="https://ollama.com" rel="noopener">Ollama</a> and pull a model. Say It Better itself is free.</p>
           </details>
         </div>
       </div>
