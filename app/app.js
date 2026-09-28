@@ -21,7 +21,7 @@ const PROVIDERS = {
     short: "Built-in",
     kind: "builtin",
     noKey: true, fixed: true,
-    hint: "Works right away. Your text goes to Groq through Say It Better’s server and isn’t stored.",
+    hint: "Works right away. Nothing to set up.",
   },
   device: {
     label: "On this device · private, offline",
@@ -470,7 +470,7 @@ function render() {
       <div class="choices">
         <button type="button" class="choice" data-choose="builtin">
           <strong>Built-in · no key</strong>
-          <span>Works right away. Your text goes to Groq through Say It Better’s server and isn’t stored.</span>
+          <span>Works right away. Nothing to set up.</span>
         </button>
         <button type="button" class="choice" data-choose="gemini">
           <strong>Google Gemini</strong>

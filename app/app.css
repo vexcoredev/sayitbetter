@@ -195,6 +195,7 @@ dialog[open]::backdrop { animation: fade-in .25s ease; }
 .status.err { color: var(--danger); }
 .sheet-actions { display: flex; gap: 10px; }
 .sheet-actions .btn { flex: 1; }
+.sheet-foot { text-align: center; }
 [hidden] { display: none !important; }
 
 /* Toast */
