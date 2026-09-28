@@ -415,6 +415,7 @@ function refresh(force = false) {
 }
 
 function show(result, text) {
+  state.fresh = result !== state.suggestions;
   state.suggestions = result;
   state.suggestionsSource = text;
   state.loading = false;
@@ -427,7 +428,7 @@ const ICON_COPY = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9"
 const ICON_USE = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>`;
 
 function itemHTML(n, text, html, cls = "") {
-  return `<li class="item ${cls}" data-text="${esc(text)}">
+  return `<li class="item ${cls}" data-text="${esc(text)}" style="--i:${typeof n === "number" ? n : 0}">
     <span class="n">${n}</span>
     <span class="t">${html}</span>
     <span class="acts">
@@ -478,7 +479,8 @@ function render() {
   if (state.needsMore) {
     parts.push(`<p class="note">Keep typing — suggestions appear once there’s a phrase to work with.</p>`);
   } else if (s) {
-    const stale = state.loading ? " stale" : "";
+    const stale = (state.loading ? " stale" : "") + (state.fresh ? " enter" : "");
+    state.fresh = false;
     const unchanged = s.corrected === state.suggestionsSource;
     parts.push(`<p class="label">${unchanged ? "Looks good" : "Corrected"}${state.loading ? '<span class="spin"></span>' : ""}</p>`);
     parts.push(`<ul class="list${stale}">${itemHTML("✓", s.corrected, highlight(s.corrected, state.suggestionsSource), "corrected")}</ul>`);
@@ -503,6 +505,39 @@ function updateChip() {
     : isReady(c) ? c.model || c.short : "Set up";
   $("#model-name").textContent = name;
   $("#model-dot").classList.toggle("ok", isReady(c));
+}
+
+/**
+ * A light tap where the device supports it: the Vibration API on Android, and on iOS 18+ Safari
+ * the haptic that toggling a native switch plays. Must run inside a user gesture; does nothing elsewhere.
+ */
+const haptic = (() => {
+  let label;
+  return () => {
+    try {
+      if (navigator.vibrate) { navigator.vibrate(8); return; }
+      if (!/iP(hone|ad|od)/.test(navigator.userAgent)) return;
+      if (!label) {
+        label = document.createElement("label");
+        label.setAttribute("aria-hidden", "true");
+        label.style.cssText = "position:fixed;left:-9999px;opacity:0;pointer-events:none";
+        label.innerHTML = '<input type="checkbox" switch tabindex="-1">';
+        document.body.append(label);
+      }
+      label.click();
+    } catch {}
+  };
+})();
+
+/** Briefly marks the item that was just copied or used. */
+function flash(item, act) {
+  if (!item) return;
+  item.classList.remove("flash"); void item.offsetWidth; item.classList.add("flash");
+  const btn = item.querySelector(`[data-act="${act}"]`);
+  if (btn) {
+    btn.classList.add("done");
+    setTimeout(() => btn.classList.remove("done"), 1100);
+  }
 }
 
 let toastTimer;
@@ -559,8 +594,8 @@ results.addEventListener("click", (e) => {
   const item = e.target.closest(".item[data-text]");
   if (!item) return;
   const text = item.dataset.text;
-  if (e.target.closest('[data-act="use"]')) { apply(text); toast("Replaced"); }
-  else if (!window.getSelection()?.toString()) copy(text);
+  if (e.target.closest('[data-act="use"]')) { haptic(); flash(item, "use"); apply(text); toast("Replaced"); }
+  else if (!window.getSelection()?.toString()) { haptic(); flash(item, "copy"); copy(text); }
 });
 
 for (const b of document.querySelectorAll(".bar .seg-btn")) {
