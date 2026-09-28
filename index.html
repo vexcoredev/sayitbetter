@@ -102,7 +102,7 @@
 
         <!-- Hero demo: the panel -->
         <div class="stage hero-stage">
-          <div class="window ap-window hero-window demo" id="demo-rewrite" role="img" aria-label="Animated demo of the Say It Better panel: the sentence “can you check once why access is not coming” is typed. A corrected version appears with the changed words highlighted, followed by a list of three alternative phrasings. A pointer copies one of them and a Copied confirmation appears.">
+          <div class="window ap-window hero-window demo" id="demo-rewrite" role="img" aria-label="Animated demo of the Say It Better panel: the sentence “can you check once why access is not coming” is typed. A corrected version appears with the changed words highlighted, followed by three alternative phrasings. A pointer picks the Professional tone chip, the alternatives change to professional versions, and one is copied.">
             <div class="ap-head">
               <span class="lights"><i></i><i></i><i></i></span>
               <span class="ap-tools">
@@ -114,7 +114,8 @@
               </span>
             </div>
             <div class="ap-body">
-              <div class="ap-editor"><p class="rw-line"><span data-rw-line></span><span class="caret"></span></p></div>
+              <div class="ap-editor" data-rw-editor><p class="rw-line"><span data-rw-line></span><span class="caret"></span></p></div>
+              <div class="ap-tones" aria-hidden="true"><span class="ap-tone">Shorter</span><span class="ap-tone" data-rw-tone>Professional</span><span class="ap-tone">Confident</span><span class="ap-tone">Polite</span><span class="ap-tone">Casual</span><span class="ap-tone">WhatsApp</span><span class="ap-tone">Warmer</span><span class="ap-tone">Simpler</span><span class="ap-tone">Longer</span><span class="ap-tone">Corporate</span></div>
               <div class="ap-results">
                 <div class="ap-empty" data-rw-status>
                   <span class="ap-tile"><svg viewBox="0 0 24 24"><path d="M5 18 9.5 6h1L15 18M6.6 14h7.8M18 5v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -127,11 +128,11 @@
                     <div class="ap-btns"><span class="ap-btn ap-btn-primary"><svg><use href="#copy"/></svg>Copy</span><span class="ap-btn"><svg viewBox="0 0 24 24"><path d="M20 5v7a3 3 0 0 1-3 3H5m0 0 4-4m-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Replace</span></div>
                   </div>
                   <div class="ap-alts" data-rw-step>
-                    <span class="ap-kicker">Alternatives</span>
+                    <span class="ap-kicker" data-rw-alt-label>Alternatives</span>
                     <ol class="ap-list">
-                      <li data-rw-row><span class="ap-n">2</span><span class="ap-t">Could you check why access hasn’t been granted?</span><span class="ap-copy" data-rw-target><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
-                      <li data-rw-row><span class="ap-n">3</span><span class="ap-t">Can you please check why the user isn’t getting access?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
-                      <li data-rw-row><span class="ap-n">4</span><span class="ap-t">Could you look into why access isn’t working?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      <li data-rw-row><span class="ap-n">2</span><span class="ap-t" data-rw-alt data-pro="Could you please look into why my access hasn’t been granted yet?">Could you check why access hasn’t been granted?</span><span class="ap-copy" data-rw-target><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      <li data-rw-row><span class="ap-n">3</span><span class="ap-t" data-rw-alt data-pro="Would you be able to check why I’m still unable to access it?">Can you please check why the user isn’t getting access?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      <li data-rw-row><span class="ap-n">4</span><span class="ap-t" data-rw-alt data-pro="Could you kindly investigate why access is currently unavailable?">Could you look into why access isn’t working?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
                     </ol>
                   </div>
                 </div>
@@ -268,12 +269,12 @@
         <div class="split-copy">
           <p class="kicker">04 Menu bar</p>
           <h2>One click away, <em>never in the way.</em></h2>
-          <p class="sub">Say It Better sits quietly in your menu bar. Open the popover to draft or fix a sentence on the spot, grab a suggestion, and get back to work.</p>
+          <p class="sub">Say It Better sits quietly in your menu bar, in every app. Click ✦, type what you want to say, pick a tone, copy the version you like and paste it right back into your chat or email.</p>
         </div>
         <div class="stage">
-          <div class="desk demo" id="demo-menubar" role="img" aria-label="Animated demo: the pointer clicks the Say It Better icon in the macOS menu bar, a popover drops down with a small editor, a sentence is typed and suggestions appear below it.">
+          <div class="desk demo" id="demo-menubar" role="img" aria-label="Animated demo: in a chat app, the pointer clicks the Say It Better sparkle icon in the macOS menu bar. A popover drops down, a rough message is typed, and WhatsApp-style versions appear. One is copied, the popover closes, and the message is pasted into the chat and sent.">
             <div class="menubar">
-              <span class="mb-left"><svg class="mb-apple" viewBox="0 0 24 24"><use href="#apple-dl"/></svg><b>Mail</b><span>File</span><span>Edit</span><span class="mb-hide">View</span><span class="mb-hide">Mailbox</span></span>
+              <span class="mb-left"><svg class="mb-apple" viewBox="0 0 24 24"><use href="#apple-dl"/></svg><b>Messages</b><span>File</span><span>Edit</span><span class="mb-hide">View</span><span class="mb-hide">Conversations</span></span>
               <span class="mb-right">
                 <span class="mb-icon" data-mb-icon><svg viewBox="0 0 24 24"><path d="M12 3.5c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
                 <svg class="mb-sys" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5a14 14 0 0 1 19 0M5.5 12.7a9.5 9.5 0 0 1 13 0M8.6 15.8a5 5 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
@@ -281,7 +282,14 @@
                 <span class="mb-time">Sat 9:41</span>
               </span>
             </div>
-            <div class="desk-window" aria-hidden="true"><div class="dw-bar"><span class="lights"><i></i><i></i><i></i></span></div><div class="dw-lines"><i></i><i></i><i></i><i></i></div></div>
+            <div class="desk-window chat" aria-hidden="true">
+              <div class="dw-bar"><span class="lights"><i></i><i></i><i></i></span><span class="chat-name"><i>S</i>Sam</span></div>
+              <div class="chat-body" data-mb-chat>
+                <p class="bubble in">Hey! Free for lunch tomorrow? 🙂</p>
+                <p class="bubble out" data-mb-sent></p>
+              </div>
+              <div class="chat-input"><span data-mb-input></span><span class="chat-ph" data-mb-ph>Message</span></div>
+            </div>
             <div class="popover ap-pop" data-mb-pop>
               <div class="ap-head">
                 <span class="ap-brand"><svg><use href="#logo"/></svg>Say It Better</span>
@@ -294,6 +302,7 @@
               </div>
               <div class="ap-body">
                 <div class="ap-editor"><p class="rw-line"><span data-mb-text></span><span class="caret"></span></p></div>
+                <div class="ap-tones" aria-hidden="true"><span class="ap-tone">Shorter</span><span class="ap-tone">Professional</span><span class="ap-tone">Confident</span><span class="ap-tone">Polite</span><span class="ap-tone">Casual</span><span class="ap-tone on">WhatsApp</span><span class="ap-tone">Warmer</span><span class="ap-tone">Simpler</span><span class="ap-tone">Longer</span><span class="ap-tone">Corporate</span></div>
                 <div class="ap-results">
                   <div class="ap-empty" data-mb-empty><span>Fixes and fresh phrasings show up here as you type.</span></div>
                   <div class="ap-out">
@@ -303,11 +312,11 @@
                       <div class="ap-btns"><span class="ap-btn ap-btn-primary"><svg><use href="#copy"/></svg>Copy</span><span class="ap-btn"><svg viewBox="0 0 24 24"><path d="M20 5v7a3 3 0 0 1-3 3H5m0 0 4-4m-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Replace</span></div>
                     </div>
                     <div class="ap-alts" data-mb-sug>
-                      <span class="ap-kicker">Alternatives</span>
+                      <span class="ap-kicker">WhatsApp versions</span>
                       <ol class="ap-list">
-                        <li data-mb-sug><span class="ap-n">2</span><span class="ap-t">Want to grab lunch tomorrow at 1? It’s on me.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
-                        <li data-mb-sug><span class="ap-n">3</span><span class="ap-t">How about lunch tomorrow at 1? My treat.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
-                        <li data-mb-sug><span class="ap-n">4</span><span class="ap-t">Lunch tomorrow at 1? I’m buying.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                        <li data-mb-sug><span class="ap-n">2</span><span class="ap-t">Lunch tomorrow at 1? My treat 😄</span><span class="ap-copy" data-mb-copy><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                        <li data-mb-sug><span class="ap-n">3</span><span class="ap-t">Wanna grab lunch tmrw at 1? It’s on me!</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                        <li data-mb-sug><span class="ap-n">4</span><span class="ap-t">Free for lunch tomorrow at 1? I’m buying 🍕</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
                       </ol>
                     </div>
                   </div>

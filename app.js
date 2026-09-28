@@ -205,9 +205,18 @@
     const targetRow = target.closest("li");
     const toast = $("[data-rw-toast]", root);
     const cursor = $("[data-cursor]", root);
+    const editorBox = $("[data-rw-editor]", root);
+    const toneChip = $("[data-rw-tone]", root);
+    const altLabel = $("[data-rw-alt-label]", root);
+    const alts = $$("[data-rw-alt]", root).map((el) => ({ el, mix: el.textContent, pro: el.dataset.pro }));
     const g = gate(root);
 
     const raw = "can you check once why access is not coming";
+    const setTone = (pro) => {
+      toneChip.classList.toggle("on", pro);
+      altLabel.textContent = pro ? "Professional versions" : "Alternatives";
+      alts.forEach((a) => (a.el.textContent = pro ? a.pro : a.mix));
+    };
     const idle = emptyText.textContent;
 
     const showAll = () => {
@@ -223,6 +232,8 @@
     }
 
     const reset = () => {
+      setTone(false);
+      editorBox.classList.remove("thinking");
       line.textContent = "";
       steps.forEach((s) => s.classList.remove("show"));
       rows.forEach((r) => r.classList.remove("show"));
@@ -248,16 +259,33 @@
         root.classList.remove("typing");
         await g.sleep(300);
         empty.classList.add("thinking");
+        editorBox.classList.add("thinking");
         emptyText.textContent = "Thinking…";
         await g.sleep(1100);
+        editorBox.classList.remove("thinking");
         empty.classList.add("hide");
         steps[0].classList.add("show");
         await g.sleep(350);
         steps[1].classList.add("show");
         for (const r of rows) { await g.sleep(160); r.classList.add("show"); }
-        await g.sleep(1400);
+        await g.sleep(1300);
+        // Pick a tone: the alternatives come back in that style.
         cursor.classList.add("show");
         await g.sleep(60);
+        moveCursor(cursor, root, toneChip);
+        await g.sleep(900);
+        click(cursor);
+        toneChip.classList.add("press");
+        await g.sleep(120);
+        toneChip.classList.remove("press");
+        toneChip.classList.add("on");
+        editorBox.classList.add("thinking");
+        rows.forEach((r) => r.classList.remove("show"));
+        await g.sleep(700);
+        setTone(true);
+        editorBox.classList.remove("thinking");
+        for (const r of rows) { await g.sleep(140); r.classList.add("show"); }
+        await g.sleep(1200);
         moveCursor(cursor, root, target);
         await g.sleep(700);
         targetRow.classList.add("hover");
@@ -293,6 +321,13 @@
     const text = $("[data-mb-text]", root);
     const sugs = $$("[data-mb-sug]", root);
     const empty = $("[data-mb-empty]", root);
+    const copyBtn = $("[data-mb-copy]", root);
+    const picked = copyBtn.closest("li");
+    const pickedText = $(".ap-t", picked).textContent;
+    const input = $("[data-mb-input]", root);
+    const inputBox = input.parentElement;
+    const placeholder = $("[data-mb-ph]", root);
+    const sent = $("[data-mb-sent]", root);
     const cursor = $("[data-cursor]", root);
     const g = gate(root);
     const raw = "lets grab lunch tmrw at 1? my treat";
@@ -309,36 +344,67 @@
     (async () => {
       await g.waitVisible();
       for (;;) {
+        // In a chat, with Say It Better in the menu bar.
         text.textContent = "";
+        input.textContent = "";
+        placeholder.hidden = false;
+        inputBox.classList.remove("focus");
+        sent.classList.remove("show");
+        sent.textContent = "";
         sugs.forEach((s) => s.classList.remove("show"));
         empty.classList.remove("hide");
-        parkCursor(cursor, root, 0.45, 0.8);
+        copyBtn.classList.remove("done");
+        picked.classList.remove("hover");
+        parkCursor(cursor, root, 0.3, 0.85);
         cursor.classList.add("show");
-        await g.sleep(700);
+        await g.sleep(900);
+        // Open it from the menu bar.
         moveCursor(cursor, root, icon, 2, 2);
         await g.sleep(1000);
         click(cursor);
         icon.classList.add("active");
         pop.classList.add("open");
         await g.sleep(300);
-        parkCursor(cursor, root, 0.3, 0.85);
-        await g.sleep(500);
+        parkCursor(cursor, root, 0.25, 0.9);
+        await g.sleep(400);
         root.classList.add("typing");
         for (const ch of raw) {
           text.textContent += ch;
           await g.sleep(ch === " " ? rand(60, 110) : rand(30, 70));
         }
         root.classList.remove("typing");
-        await g.sleep(600);
+        await g.sleep(700);
         empty.classList.add("hide");
-        for (const s of sugs) { s.classList.add("show"); await g.sleep(180); }
-        await g.sleep(3200);
+        for (const s of sugs) { s.classList.add("show"); await g.sleep(170); }
+        await g.sleep(1400);
+        // Copy the one that sounds right.
+        moveCursor(cursor, root, copyBtn);
+        await g.sleep(800);
+        picked.classList.add("hover");
+        await g.sleep(250);
+        click(cursor);
+        copyBtn.classList.add("done");
+        await g.sleep(900);
+        // Close the popover and paste it into the chat.
         moveCursor(cursor, root, icon, 2, 2);
-        await g.sleep(1000);
+        await g.sleep(900);
         click(cursor);
         pop.classList.remove("open");
         icon.classList.remove("active");
+        await g.sleep(400);
+        moveCursor(cursor, root, inputBox);
         await g.sleep(900);
+        click(cursor);
+        inputBox.classList.add("focus");
+        await g.sleep(500);
+        placeholder.hidden = true;
+        input.textContent = pickedText;
+        await g.sleep(900);
+        sent.textContent = pickedText;
+        input.textContent = "";
+        placeholder.hidden = false;
+        sent.classList.add("show");
+        await g.sleep(3000);
       }
     })();
   }

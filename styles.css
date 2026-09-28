@@ -251,6 +251,21 @@ kbd {
 .ap-icon svg { width: 13px; height: 13px; }
 .ap-body { padding: 4px 16px 0; display: grid; gap: 14px; }
 .ap-editor { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; min-height: 76px; }
+/* Tone chips, like the app's row under the editor */
+.ap-tones {
+  display: flex; gap: 6px; margin: 0 -16px; padding: 2px 16px; overflow: hidden; white-space: nowrap;
+  mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 28px), transparent);
+}
+.ap-tone { flex: none; padding: 4px 11px; border-radius: 999px; font: 500 12px var(--font); color: var(--muted); background: var(--surface); border: 1px solid var(--border); transition: all .25s ease; }
+.ap-tone.on { color: var(--on-lime); background: var(--grad); border-color: transparent; font-weight: 600; box-shadow: 0 3px 12px -3px rgba(200, 245, 96, .45); }
+.ap-tone.press { transform: scale(.94); }
+.ap-pop .ap-tones { margin: 0 -12px; padding: 2px 12px; }
+/* Soft glow like the app: behind the editor (stronger while thinking) and the corrected card */
+.ap-editor { box-shadow: 0 8px 18px -10px rgba(200, 245, 96, .10); transition: box-shadow .4s ease; }
+.ap-editor.thinking { box-shadow: 0 8px 26px -8px rgba(200, 245, 96, .22); }
+.ap-corrected { box-shadow: 0 8px 20px -10px rgba(200, 245, 96, .14); }
+[data-rw-alt] { transition: opacity .25s ease; }
+[data-rw-alt].swap { opacity: 0; }
 .ap-results { display: grid; min-height: 318px; }
 .ap-results > * { grid-area: 1 / 1; }
 .ap-empty { display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 40px; font-size: 12.5px; color: var(--muted); text-align: center; transition: opacity .3s; }
@@ -330,7 +345,7 @@ mark { background: var(--grad); color: var(--on-lime); border-radius: 3px; paddi
 
 /* ---------- Menu bar demo ---------- */
 .desk {
-  position: relative; height: 530px; border-radius: 12px; overflow: hidden;
+  position: relative; height: 566px; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--border); background: var(--bg);
 }
 .menubar {
@@ -353,6 +368,20 @@ mark { background: var(--grad); color: var(--on-lime); border-radius: 3px; paddi
 }
 .dw-bar { height: 32px; display: flex; align-items: center; padding: 0 12px; border-bottom: 1px solid var(--border); }
 .dw-bar .lights i { width: 10px; height: 10px; }
+/* Chat app behind the popover */
+.desk-window.chat { left: 5%; top: 50px; width: 60%; height: calc(100% - 74px); display: flex; flex-direction: column; overflow: hidden; }
+.chat .dw-bar { gap: 14px; }
+.chat-name { display: inline-flex; align-items: center; gap: 8px; font: 600 13px var(--font); }
+.chat-name i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); font: 600 11px var(--font); font-style: normal; color: var(--muted); }
+.chat-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 16px; }
+.bubble { margin: 0; max-width: 78%; padding: 8px 12px; border-radius: 16px; font-size: 13.5px; line-height: 1.45; }
+.bubble.in { align-self: flex-start; background: var(--surface-2); border-bottom-left-radius: 5px; }
+.bubble.out { align-self: flex-end; background: var(--grad); color: var(--on-lime); border-bottom-right-radius: 5px; transition: opacity .3s ease, transform .35s cubic-bezier(.2, .8, .2, 1); }
+.bubble.out:not(.show) { opacity: 0; transform: translateY(8px) scale(.96); }
+.chat-input { position: relative; margin: 0 12px 12px; min-height: 36px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); font-size: 13.5px; }
+.chat-input.focus { border-color: #3d4a24; box-shadow: 0 0 0 3px rgba(200, 245, 96, .06); }
+.chat-ph { position: absolute; left: 14px; top: 8px; color: var(--dim); }
+.ap-copy.done { color: var(--on-lime); background: var(--grad-d); border-color: transparent; }
 .dw-lines { padding: 22px; display: grid; gap: 14px; }
 .dw-lines i { display: block; height: 8px; border-radius: 4px; background: var(--surface-2); }
 .dw-lines i:nth-child(1) { width: 60%; }
@@ -611,7 +640,7 @@ mark { background: var(--grad); color: var(--on-lime); border-radius: 3px; paddi
   .hint-bar { padding: 10px 12px; }
   .status { display: none; }
   .hints { width: 100%; justify-content: space-between; }
-  .desk { height: 560px; }
+  .desk { height: 600px; }
   .mb-left { gap: 12px; }
   .prov { padding: 16px; }
   .keycard { padding: 18px 12px; }

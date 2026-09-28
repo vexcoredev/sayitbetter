@@ -141,12 +141,14 @@ function isReady(c = config()) {
 /** Tone chips: label and how the alternatives should sound. */
 const TONES = {
   shorter: ["Shorter", "noticeably shorter and more concise than the original, keeping the key point"],
-  longer: ["Longer", "a little longer and more complete, adding natural detail or context without changing the meaning"],
-  warmer: ["Warmer", "warmer and more caring, with a kind, personal touch"],
-  casual: ["Casual", "casual and relaxed, like everyday conversation"],
-  friendly: ["Friendly", "friendly and upbeat"],
-  whatsapp: ["WhatsApp", "short, natural chat messages you'd send on WhatsApp; one fitting emoji is fine"],
   professional: ["Professional", "professional, clear and polite, fit for a work email"],
+  confident: ["Confident", "confident and direct, without hedging, filler or unnecessary apologies"],
+  polite: ["Polite", "polite and tactful, gentle and considerate without sounding stiff"],
+  casual: ["Casual", "casual and relaxed, like everyday conversation"],
+  whatsapp: ["WhatsApp", "short, natural chat messages you'd send on WhatsApp; one fitting emoji is fine"],
+  warmer: ["Warmer", "warmer and more caring, with a kind, personal touch"],
+  simpler: ["Simpler", "simpler, with plain everyday words and short sentences that are easy to read"],
+  longer: ["Longer", "a little longer and more complete, adding natural detail or context without changing the meaning"],
   corporate: ["Corporate", "formal corporate business language, polished and diplomatic"],
 };
 
