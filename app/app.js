@@ -583,7 +583,54 @@ async function copy(text) {
     ta.remove();
   }
   toast("Copied");
+  maybeSuggestInstall();
 }
+
+// MARK: Add to Home Screen
+
+// Suggested inside the app after it has been useful once (first copy), never when already installed.
+// "Not now" snoozes it for a week; a second "Not now" stops it for good.
+const INSTALL = "limaret.install";
+const install = { deferred: null, el: $("#install") };
+const isInstalled = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = () => /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+// Chrome, Edge and Android offer a real install prompt; keep it for our own button.
+addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); install.deferred = e; });
+addEventListener("appinstalled", () => { install.el.hidden = true; save(INSTALL, { done: true }); });
+
+function maybeSuggestInstall() {
+  if (isInstalled() || !install.el.hidden) return;
+  const st = load(INSTALL, {});
+  if (st.done || (st.dismissed || 0) >= 2 || Date.now() < (st.until || 0)) return;
+  const btn = $("#install-btn");
+  if (install.deferred) {
+    btn.hidden = false;
+    $("#install-how").textContent = "Install Say It Better. It opens like an app, one tap away.";
+  } else if (isIOS()) {
+    btn.hidden = true;
+    $("#install-how").innerHTML = 'Tap <svg viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> <b>Share</b>, then <b>Add to Home Screen</b>.';
+  } else {
+    return; // no way to install from this browser
+  }
+  setTimeout(() => { install.el.hidden = false; }, 1400); // after the "Copied" toast
+}
+
+$("#install-btn").addEventListener("click", async () => {
+  const e = install.deferred;
+  if (!e) return;
+  install.deferred = null;
+  install.el.hidden = true;
+  e.prompt();
+  const { outcome } = await e.userChoice.catch(() => ({ outcome: "dismissed" }));
+  if (outcome === "accepted") save(INSTALL, { done: true });
+});
+$("#install-later").addEventListener("click", () => {
+  const st = load(INSTALL, {});
+  const dismissed = (st.dismissed || 0) + 1;
+  save(INSTALL, { dismissed, until: Date.now() + 7 * 24 * 3600 * 1000 });
+  install.el.hidden = true;
+});
 
 /** Replaces the current line (or all text) in the editor. */
 function apply(text) {

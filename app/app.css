@@ -207,5 +207,22 @@ dialog[open]::backdrop { animation: fade-in .25s ease; }
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
 
+/* Add to Home Screen suggestion */
+.install {
+  position: fixed; left: 12px; right: 12px; bottom: calc(12px + var(--bottom)); z-index: 20; max-width: 520px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7), 0 10px 40px -20px rgba(200, 245, 96, .35);
+  animation: up .4s cubic-bezier(.2, .8, .2, 1);
+}
+.install img { flex: none; border-radius: 11px; }
+.install-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.install-text strong { color: var(--text); font-size: 15px; }
+.install-text b { color: var(--text); font-weight: 600; }
+.install-text svg { display: inline-block; width: 15px; height: 15px; vertical-align: -3px; stroke: var(--lime); fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.install-acts { flex: none; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.btn-sm { min-height: 34px; padding: 7px 14px; font-size: 14px; }
+.install .link { font-size: 13.5px; color: var(--muted); font-weight: 500; }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 .hint a { color: var(--lime); text-decoration: none; font-weight: 500; white-space: nowrap; }
