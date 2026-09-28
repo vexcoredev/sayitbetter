@@ -197,37 +197,41 @@
     const root = $("#demo-rewrite");
     if (!root) return;
     const line = $("[data-rw-line]", root);
-    const status = $("[data-rw-status]", root);
-    const cards = $$(".rw-card", root);
+    const empty = $("[data-rw-status]", root);
+    const emptyText = $("[data-rw-status-text]", root);
+    const steps = $$("[data-rw-step]", root);
+    const rows = $$("[data-rw-row]", root);
     const target = $("[data-rw-target]", root);
-    const targetCard = target.closest(".rw-card");
-    const targetKbd = $("kbd", targetCard);
+    const targetRow = target.closest("li");
     const toast = $("[data-rw-toast]", root);
     const cursor = $("[data-cursor]", root);
     const g = gate(root);
 
     const raw = "can you check once why access is not coming";
-    const marked = 'can you check <span class="typo">once</span> why access <span class="typo">is not coming</span>';
+    const idle = emptyText.textContent;
 
     const showAll = () => {
-      line.innerHTML = marked;
-      cards.forEach((c) => c.classList.add("show"));
+      line.textContent = raw;
+      empty.classList.add("hide");
+      steps.forEach((s) => s.classList.add("show"));
+      rows.forEach((r) => r.classList.add("show"));
     };
 
     if (reduced) {
       showAll();
-      target.classList.add("done");
       return;
     }
 
     const reset = () => {
       line.textContent = "";
-      cards.forEach((c) => c.classList.remove("show", "hit"));
+      steps.forEach((s) => s.classList.remove("show"));
+      rows.forEach((r) => r.classList.remove("show"));
+      empty.classList.remove("hide", "thinking");
+      emptyText.textContent = idle;
       target.classList.remove("done");
+      targetRow.classList.remove("hover");
       toast.classList.remove("show");
-      status.classList.remove("show");
       cursor.classList.remove("show");
-      targetKbd.classList.remove("key", "pressed");
     };
 
     (async () => {
@@ -235,38 +239,44 @@
       for (;;) {
         reset();
         parkCursor(cursor, root);
-        await g.sleep(600);
+        await g.sleep(700);
         root.classList.add("typing");
         for (const ch of raw) {
           line.textContent += ch;
           await g.sleep(ch === " " ? rand(50, 110) : rand(25, 60));
         }
         root.classList.remove("typing");
-        await g.sleep(250);
-        line.innerHTML = marked;
-        status.classList.add("show");
-        await g.sleep(1000);
-        status.classList.remove("show");
-        for (const c of cards) { c.classList.add("show"); await g.sleep(160); }
-        await g.sleep(1300);
+        await g.sleep(300);
+        empty.classList.add("thinking");
+        emptyText.textContent = "Thinking…";
+        await g.sleep(1100);
+        empty.classList.add("hide");
+        steps[0].classList.add("show");
+        await g.sleep(350);
+        steps[1].classList.add("show");
+        for (const r of rows) { await g.sleep(160); r.classList.add("show"); }
+        await g.sleep(1400);
         cursor.classList.add("show");
         await g.sleep(60);
         moveCursor(cursor, root, target);
-        await g.sleep(1000);
+        await g.sleep(700);
+        targetRow.classList.add("hover");
+        await g.sleep(400);
         click(cursor);
         target.classList.add("press");
         await g.sleep(140);
         target.classList.remove("press");
         target.classList.add("done");
-        targetCard.classList.add("hit");
         toast.classList.add("show");
         await g.sleep(1800);
         toast.classList.remove("show");
+        target.classList.remove("done");
         await g.sleep(700);
         parkCursor(cursor, root);
+        targetRow.classList.remove("hover");
         cursor.classList.remove("show");
         await g.sleep(900);
-        cards.forEach((c) => c.classList.remove("show"));
+        steps.forEach((s) => s.classList.remove("show"));
         await g.sleep(600);
       }
     })();
@@ -282,6 +292,7 @@
     const pop = $("[data-mb-pop]", root);
     const text = $("[data-mb-text]", root);
     const sugs = $$("[data-mb-sug]", root);
+    const empty = $("[data-mb-empty]", root);
     const cursor = $("[data-cursor]", root);
     const g = gate(root);
     const raw = "lets grab lunch tmrw at 1? my treat";
@@ -291,6 +302,7 @@
       pop.classList.add("open");
       text.textContent = raw;
       sugs.forEach((s) => s.classList.add("show"));
+      empty.classList.add("hide");
       return;
     }
 
@@ -299,6 +311,7 @@
       for (;;) {
         text.textContent = "";
         sugs.forEach((s) => s.classList.remove("show"));
+        empty.classList.remove("hide");
         parkCursor(cursor, root, 0.45, 0.8);
         cursor.classList.add("show");
         await g.sleep(700);
@@ -317,6 +330,7 @@
         }
         root.classList.remove("typing");
         await g.sleep(600);
+        empty.classList.add("hide");
         for (const s of sugs) { s.classList.add("show"); await g.sleep(180); }
         await g.sleep(3200);
         moveCursor(cursor, root, icon, 2, 2);

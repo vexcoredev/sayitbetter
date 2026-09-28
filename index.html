@@ -96,52 +96,42 @@
 
         <!-- Hero demo: the panel -->
         <div class="stage hero-stage">
-          <div class="window rw-window hero-window demo" id="demo-rewrite" role="img" aria-label="Animated demo: the sentence “can you check once why access is not coming” is typed. The Say It Better panel shows a corrected version with the changes highlighted and three alternative phrasings. A pointer clicks copy on one of them and a Copied confirmation appears.">
-            <div class="titlebar">
+          <div class="window ap-window hero-window demo" id="demo-rewrite" role="img" aria-label="Animated demo of the Say It Better panel: the sentence “can you check once why access is not coming” is typed. A corrected version appears with the changed words highlighted, followed by a list of three alternative phrasings. A pointer copies one of them and a Copied confirmation appears.">
+            <div class="ap-head">
               <span class="lights"><i></i><i></i><i></i></span>
-              <span class="title">Say It Better</span>
+              <span class="ap-tools">
+                <span class="ap-scope"><b class="on">Line</b><b>All</b></span>
+                <span class="ap-model"><i></i>qwen2.5:1.5b<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.5 4 5 6.5 7.5 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                <span class="ap-icon ap-hide"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="ap-icon ap-hide"><svg viewBox="0 0 24 24"><path d="M9 4h6l-1 6 3 3H7l3-3-1-6ZM12 13v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="ap-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              </span>
             </div>
-            <div class="rw-body">
-              <div class="rw-editor">
-                <div class="rw-editor-head"><span>Current line</span><span class="rw-follow"><span class="pulse-dot"></span> following cursor</span></div>
-                <p class="rw-line"><span data-rw-line></span><span class="caret"></span></p>
+            <div class="ap-body">
+              <div class="ap-editor"><p class="rw-line"><span data-rw-line></span><span class="caret"></span></p></div>
+              <div class="ap-results">
+                <div class="ap-empty" data-rw-status>
+                  <span class="ap-tile"><svg viewBox="0 0 24 24"><path d="M5 18 9.5 6h1L15 18M6.6 14h7.8M18 5v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span data-rw-status-text>Fixes and fresh phrasings show up here as you type.</span>
+                </div>
+                <div class="ap-out" data-rw-out>
+                  <div class="ap-corrected" data-rw-step>
+                    <div class="ap-row-head"><span class="ap-kicker">Corrected</span><kbd class="ap-key">⌘1</kbd></div>
+                    <p><em>Can</em> you check why <em>the</em> access <em>isn’t</em> coming <em>through?</em></p>
+                    <div class="ap-btns"><span class="ap-btn ap-btn-primary"><svg><use href="#copy"/></svg>Copy</span><span class="ap-btn"><svg viewBox="0 0 24 24"><path d="M20 5v7a3 3 0 0 1-3 3H5m0 0 4-4m-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Replace</span></div>
+                  </div>
+                  <div class="ap-alts" data-rw-step>
+                    <span class="ap-kicker">Alternatives</span>
+                    <ol class="ap-list">
+                      <li data-rw-row><span class="ap-n">2</span><span class="ap-t">Could you check why access hasn’t been granted?</span><span class="ap-copy" data-rw-target><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      <li data-rw-row><span class="ap-n">3</span><span class="ap-t">Can you please check why the user isn’t getting access?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      <li data-rw-row><span class="ap-n">4</span><span class="ap-t">Could you look into why access isn’t working?</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                    </ol>
+                  </div>
+                </div>
               </div>
-              <div class="rw-status" data-rw-status><span class="spinner"></span> Finding better ways to say it…</div>
-              <ol class="rw-cards">
-                <li class="rw-card is-corrected">
-                  <div class="rw-card-main">
-                    <span class="rw-tag">Corrected</span>
-                    <p><mark>Can</mark> you check why <mark>the</mark> access <mark>isn't</mark> coming <mark>through?</mark></p>
-                    <span class="rw-replace">Replace in editor</span>
-                  </div>
-                  <div class="rw-card-side"><kbd>⌘1</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
-                </li>
-                <li class="rw-card">
-                  <div class="rw-card-main">
-                    <span class="rw-tag">Alternative</span>
-                    <p>Could you check why access hasn't been granted?</p>
-                    <span class="rw-replace">Replace in editor</span>
-                  </div>
-                  <div class="rw-card-side"><kbd>⌘2</kbd><span class="rw-copy" data-rw-target><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
-                </li>
-                <li class="rw-card">
-                  <div class="rw-card-main">
-                    <span class="rw-tag">Alternative</span>
-                    <p>Can you please check why the user isn't getting access?</p>
-                    <span class="rw-replace">Replace in editor</span>
-                  </div>
-                  <div class="rw-card-side"><kbd>⌘3</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
-                </li>
-                <li class="rw-card">
-                  <div class="rw-card-main">
-                    <span class="rw-tag">Alternative</span>
-                    <p>Could you verify why the access is missing?</p>
-                    <span class="rw-replace">Replace in editor</span>
-                  </div>
-                  <div class="rw-card-side"><kbd>⌘4</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
-                </li>
-              </ol>
             </div>
+            <div class="ap-status"><i></i><span>Autocomplete off</span><span class="ap-switch"></span></div>
             <div class="toast" data-rw-toast><svg><use href="#check"/></svg> Copied</div>
             <svg class="fake-cursor" data-cursor><use href="#cursor"/></svg>
           </div>
@@ -279,20 +269,45 @@
             <div class="menubar">
               <span class="mb-left"><svg class="mb-apple" viewBox="0 0 24 24"><use href="#apple-dl"/></svg><b>Mail</b><span>File</span><span>Edit</span><span class="mb-hide">View</span><span class="mb-hide">Mailbox</span></span>
               <span class="mb-right">
-                <span class="mb-icon" data-mb-icon><svg><use href="#glyph"/></svg></span>
+                <span class="mb-icon" data-mb-icon><svg viewBox="0 0 24 24"><path d="M12 3.5c.7 4.6 3.4 7.3 8 8-4.6.7-7.3 3.4-8 8-.7-4.6-3.4-7.3-8-8 4.6-.7 7.3-3.4 8-8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
                 <svg class="mb-sys" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5a14 14 0 0 1 19 0M5.5 12.7a9.5 9.5 0 0 1 13 0M8.6 15.8a5 5 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
                 <svg class="mb-sys mb-hide" viewBox="0 0 28 24" aria-hidden="true"><rect x="1.5" y="6.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3.5" y="8.5" width="15" height="7" rx="1.5" fill="currentColor"/><rect x="24.5" y="10" width="2" height="4" rx="1" fill="currentColor"/></svg>
                 <span class="mb-time">Sat 9:41</span>
               </span>
             </div>
             <div class="desk-window" aria-hidden="true"><div class="dw-bar"><span class="lights"><i></i><i></i><i></i></span></div><div class="dw-lines"><i></i><i></i><i></i><i></i></div></div>
-            <div class="popover" data-mb-pop>
-              <div class="pop-head"><svg class="pop-logo"><use href="#logo"/></svg> Say It Better <span class="pop-chip"><span class="pulse-dot"></span> Local</span></div>
-              <p class="pop-editor"><span data-mb-text></span><span class="caret"></span></p>
-              <div class="pop-sugs">
-                <div class="pop-sug" data-mb-sug><span class="rw-tag">Corrected</span><p><mark>Let's</mark> grab lunch <mark>tomorrow</mark> at 1? <mark>My</mark> treat.</p><kbd>⌘1</kbd></div>
-                <div class="pop-sug" data-mb-sug><span class="rw-tag">Alternative</span><p>Want to get lunch tomorrow at 1? It's on me.</p><kbd>⌘2</kbd></div>
+            <div class="popover ap-pop" data-mb-pop>
+              <div class="ap-head">
+                <span class="ap-brand"><svg><use href="#logo"/></svg>Say It Better</span>
+                <span class="ap-tools">
+                  <span class="ap-scope"><b class="on">Line</b><b>All</b></span>
+                  <span class="ap-model ap-hide"><i></i>qwen2.5:1.5b</span>
+                  <span class="ap-icon ap-hide"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span class="ap-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                </span>
               </div>
+              <div class="ap-body">
+                <div class="ap-editor"><p class="rw-line"><span data-mb-text></span><span class="caret"></span></p></div>
+                <div class="ap-results">
+                  <div class="ap-empty" data-mb-empty><span>Fixes and fresh phrasings show up here as you type.</span></div>
+                  <div class="ap-out">
+                    <div class="ap-corrected" data-mb-sug>
+                      <div class="ap-row-head"><span class="ap-kicker">Corrected</span><kbd class="ap-key">⌘1</kbd></div>
+                      <p><em>Let’s</em> grab lunch <em>tomorrow</em> at 1? <em>My</em> treat.</p>
+                      <div class="ap-btns"><span class="ap-btn ap-btn-primary"><svg><use href="#copy"/></svg>Copy</span><span class="ap-btn"><svg viewBox="0 0 24 24"><path d="M20 5v7a3 3 0 0 1-3 3H5m0 0 4-4m-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Replace</span></div>
+                    </div>
+                    <div class="ap-alts" data-mb-sug>
+                      <span class="ap-kicker">Alternatives</span>
+                      <ol class="ap-list">
+                        <li data-mb-sug><span class="ap-n">2</span><span class="ap-t">Want to grab lunch tomorrow at 1? It’s on me.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                        <li data-mb-sug><span class="ap-n">3</span><span class="ap-t">How about lunch tomorrow at 1? My treat.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                        <li data-mb-sug><span class="ap-n">4</span><span class="ap-t">Lunch tomorrow at 1? I’m buying.</span><span class="ap-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ap-status"><i></i><span>Autocomplete off</span><span class="ap-switch"></span></div>
             </div>
             <svg class="fake-cursor" data-cursor><use href="#cursor"/></svg>
           </div>
