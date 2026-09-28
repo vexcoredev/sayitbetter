@@ -42,6 +42,12 @@
       <symbol id="shield" viewBox="0 0 24 24">
         <path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 8v5M12 16.2v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </symbol>
+      <symbol id="whatsapp" viewBox="0 0 24 24">
+        <path d="M4.2 19.8 5.3 16a8 8 0 1 1 2.9 2.8l-4 1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.2 8.6c.2-.4.5-.4.8-.4l.5.1c.2.4.6 1.4.6 1.5.1.1.1.3 0 .4l-.4.5c-.1.1-.2.3 0 .5.3.6 1.2 1.6 2.2 2 .2.1.4.1.5-.1l.5-.6c.1-.2.3-.2.5-.1l1.4.7c.2.1.3.2.3.3 0 .3-.1 1-.6 1.3-.5.4-1.4.5-2.5.1-1.6-.6-3-2-3.8-3.4-.6-1.1-.4-2.1 0-2.5Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="share" viewBox="0 0 24 24">
+        <path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
       <symbol id="cursor" viewBox="0 0 20 24">
         <path d="M2 1.5v17.2l4.6-4.4 3 6.6 3-1.3-3-6.5h6.3L2 1.5Z" fill="#fff" stroke="#0B0D12" stroke-width="1.3" stroke-linejoin="round"/>
       </symbol>
@@ -444,7 +450,16 @@
             Download for macOS
           </a>
           <p class="fineprint"><span data-dl-meta>v1.0</span> · macOS 14 Sonoma or later · No Mac? <a href="app/">Use it in your browser</a> — phone or PC</p>
+          </div>
           <p class="open-note"><svg class="i" aria-hidden="true"><use href="#shield"/></svg> <span><strong>One extra step on first launch:</strong> macOS will say it can’t verify the app. Click <strong>Done</strong>, not Move to Bin, then <a href="#open-guide">allow it in Settings</a>.</span></p>
+          <div class="share" data-share>
+            <p class="share-title">Know someone who rewrites every message five times?</p>
+            <p class="share-msg" data-share-text>Try Say It Better ✍️ Just start typing and better ways to say it pop up as you go. Tap one to copy. Free, no sign-up, nothing to install ⚡ https://vexcoredev.github.io/sayitbetter/app/</p>
+            <div class="share-btns">
+              <a class="btn btn-ghost btn-sm" data-share-wa href="https://wa.me/?text=" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#whatsapp"/></svg>WhatsApp</a>
+              <button type="button" class="btn btn-ghost btn-sm" data-share-native hidden><svg class="i" aria-hidden="true"><use href="#share"/></svg>Share</button>
+              <button type="button" class="btn btn-ghost btn-sm" data-share-copy><svg class="i" aria-hidden="true"><use href="#copy"/></svg><span>Copy message</span></button>
+            </div>
         </div>
       </div>
     </section>

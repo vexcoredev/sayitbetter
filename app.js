@@ -477,6 +477,29 @@
     dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   }
 
+  /* ---------------------------------------------------------------
+   * Share: WhatsApp link, native share sheet where available, copy
+   * ------------------------------------------------------------- */
+  function share() {
+    const root = $("[data-share]");
+    if (!root) return;
+    const text = $("[data-share-text]", root).textContent.trim();
+    $("[data-share-wa]", root).href = "https://wa.me/?text=" + encodeURIComponent(text);
+    const native = $("[data-share-native]", root);
+    if (navigator.share) {
+      native.hidden = false;
+      native.addEventListener("click", () => navigator.share({ text }).catch(() => {}));
+    }
+    const copyBtn = $("[data-share-copy]", root);
+    const label = $("span", copyBtn);
+    copyBtn.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(text); } catch { return; }
+      copyBtn.classList.add("done");
+      label.textContent = "Copied";
+      setTimeout(() => { copyBtn.classList.remove("done"); label.textContent = "Copy message"; }, 1600);
+    });
+  }
+
   heroDemo();
   rewriteDemo();
   menubarDemo();
@@ -485,4 +508,5 @@
   compareDemo();
   downloadMeta();
   downloadGuide();
+  share();
 })();

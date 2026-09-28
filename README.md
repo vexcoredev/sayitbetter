@@ -94,6 +94,14 @@ line you're typing and where your cursor is, and **Input Monitoring** to catch <
 - **Web app:** there are no accounts, no analytics and no backend. Your text goes straight from your browser to the AI you
   chose, or nowhere at all with the on-device option. Your draft and settings stay in your browser.
 
+## Share it
+
+Know someone who rewrites every message five times? Send them this:
+
+> Try Say It Better ✍️ Just start typing and better ways to say it pop up as you go. Tap one to copy. Free, no sign-up, nothing to install ⚡ https://vexcoredev.github.io/sayitbetter/app/
+
+[**Share on WhatsApp**](https://wa.me/?text=Try%20Say%20It%20Better%20%E2%9C%8D%EF%B8%8F%20Just%20start%20typing%20and%20better%20ways%20to%20say%20it%20pop%20up%20as%20you%20go.%20Tap%20one%20to%20copy.%20Free%2C%20no%20sign-up%2C%20nothing%20to%20install%20%E2%9A%A1%20https%3A//vexcoredev.github.io/sayitbetter/app/)
+
 ## About this repository
 
 This repo is the public website: the landing page, the web app and the Mac download. It's plain HTML, CSS and JavaScript with
