@@ -14,11 +14,11 @@ const DEVICE_MODELS = [
 
 const PROVIDERS = {
   device: {
-    label: "On this iPhone · private, offline",
+    label: "On this device · private, offline",
     short: "On-device",
     kind: "webllm",
     noKey: true, fixed: true,
-    hint: "Downloads a small model once, then runs entirely on your phone — nothing leaves the device. Needs iOS 26 or later (WebGPU). Less polished than the cloud models.",
+    hint: "Downloads a small model once, then runs entirely on your device — nothing leaves it. Needs a browser with WebGPU: recent Chrome or Edge, or Safari on macOS/iOS 26+. Less polished than the cloud models.",
   },
   gemini: {
     label: "Google Gemini · free key",
@@ -201,7 +201,7 @@ function hasWebGPU() { return "gpu" in navigator; }
 async function deviceEngine(model) {
   if (device.engine && device.model === model) return device.engine;
   if (device.loading && device.model === model) return device.loading;
-  if (!hasWebGPU()) throw new LLMError("This browser can’t run on-device models (needs WebGPU — iOS 26 or later). Pick another provider in Settings.");
+  if (!hasWebGPU()) throw new LLMError("This browser can’t run on-device models (needs WebGPU — recent Chrome or Edge, or Safari 26+). Pick another provider in Settings.");
   device.model = model;
   device.loading = (async () => {
     const webllm = await import(WEBLLM_URL);
@@ -407,10 +407,10 @@ function render() {
           <span>Fast and polished. Needs a free key from Google AI Studio — takes a minute. Your text goes to Google.</span>
         </button>
         <button type="button" class="choice" data-choose="device"${hasWebGPU() ? "" : " disabled"}>
-          <strong>On this iPhone</strong>
+          <strong>On this device</strong>
           <span>${hasWebGPU()
-            ? "Private and works offline. One-time ~300 MB download, then nothing leaves your phone. Simpler rewrites."
-            : "Not available in this browser — needs WebGPU (iOS 26 or later)."}</span>
+            ? "Private and works offline. One-time ~300 MB download, then nothing leaves your device. Simpler rewrites."
+            : "Not available in this browser — needs WebGPU (recent Chrome or Edge, or Safari 26+)."}</span>
         </button>
       </div>
     </div>`;

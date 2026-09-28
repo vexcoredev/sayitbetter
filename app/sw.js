@@ -1,5 +1,5 @@
 // Offline shell for the Limaret web app. Bump VERSION when shipping changes.
-const VERSION = "limaret-app-v1";
+const VERSION = "limaret-app-v2";
 const SHELL = ["./", "index.html", "app.css", "app.js", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "../assets/logo.svg"];
 
 self.addEventListener("install", (e) => {
