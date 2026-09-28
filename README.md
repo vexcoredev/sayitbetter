@@ -48,7 +48,8 @@ Works in any modern browser, with nothing to download.
 
 | AI | Cost | Privacy | Notes |
 |---|---|---|---|
-| **Google Gemini** *(recommended)* | Free key | Text goes to Google | Fast and polished. Get a key in a minute at [Google AI Studio](https://aistudio.google.com/apikey). |
+| **Built-in AI** *(default)* | Free, no key | Sent securely, never saved | Works right away. Nothing to set up. |
+| **Google Gemini** | Free key | Text goes to Google | Fast and polished. Get a key in a minute at [Google AI Studio](https://aistudio.google.com/apikey). |
 | **On this device** | Free, no account | Nothing leaves your device | Downloads a small model once (Qwen 2.5 0.5B, ~300 MB, or Google Gemma 3 1B, ~700 MB), then works offline. Needs WebGPU: recent Chrome or Edge, or Safari 26+. Simpler rewrites. |
 | Groq | Free key | Text goes to Groq | Very fast open models. |
 | OpenAI · Claude | Paid, per use | Text goes to that provider | Bring your own API key. |
