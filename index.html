@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limaret — Say it better. Grammar fixes and better phrasings, without the AI chat.</title>
+  <meta name="description" content="Limaret — Say it better. Grammar fixes and better phrasings, without the AI chat. A sentence assistant for macOS that runs on a local model by default.">
+  <meta name="theme-color" content="#0E0F11">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:title" content="Limaret — Say it better.">
+  <meta property="og:description" content="Grammar fixes and better phrasings, without the AI chat.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Shared SVG symbols -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="accent-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#D8FB6A"/>
+        <stop offset="1" stop-color="#2FD39A"/>
+      </linearGradient>
+      <symbol id="logo" viewBox="0 0 64 64">
+        <rect x=".75" y=".75" width="62.5" height="62.5" rx="14" fill="#17181B" stroke="#2A2C30" stroke-width="1.5"/>
+        <rect x="11" y="24" width="19" height="4" rx="2" fill="#EDEDED"/>
+        <rect x="36" y="24" width="17" height="4" rx="2" fill="#3A3C40"/>
+        <path d="M27.5 44 33 34.5 38.5 44" fill="none" stroke="url(#accent-grad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="glyph" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="2.4" rx="1.2" fill="currentColor"/>
+        <rect x="3" y="12" width="6" height="2.4" rx="1.2" fill="currentColor"/>
+        <rect x="10.6" y="9.5" width="1.9" height="8" rx=".95" fill="currentColor"/>
+        <rect x="14.2" y="12" width="6.8" height="2.4" rx="1.2" fill="currentColor" opacity=".45"/>
+      </symbol>
+      <symbol id="apple-dl" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.9-.9-3.1-.8-1.6 0-3 .9-3.9 2.3-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3-.8s1.8.8 3.1.7c1.3 0 2.1-1.2 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.4-1-2.4-4ZM14.2 5.8c.6-.8 1.1-1.8 1-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2-.5 2.7-1.3Z"/>
+      </symbol>
+      <symbol id="cursor" viewBox="0 0 20 24">
+        <path d="M2 1.5v17.2l4.6-4.4 3 6.6 3-1.3-3-6.5h6.3L2 1.5Z" fill="#fff" stroke="#0B0D12" stroke-width="1.3" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="copy" viewBox="0 0 24 24">
+        <rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="check" viewBox="0 0 24 24">
+        <path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Limaret home">
+        <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
+        <span>Limaret</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#features">Why Limaret</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-sm btn-primary" href="downloads/Limaret.dmg" data-dl download>Download</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="dot-grid" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Sentence assistant for macOS · Free</p>
+        <h1>Say it <em>better.</em></h1>
+        <p class="lede">Limaret fixes your grammar and shows you better ways to say the same thing, in a second or two. Pick one, copy it, keep writing.</p>
+        <p class="tagline">No prompting <span aria-hidden="true">·</span> No AI chat <span aria-hidden="true">·</span> Runs locally on your Mac</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="downloads/Limaret.dmg" data-dl download>
+            <svg class="i" aria-hidden="true"><use href="#apple-dl"/></svg>
+            Download for macOS
+          </a>
+          <a class="btn btn-ghost btn-lg" href="app/">Use on iPhone</a>
+        </div>
+        <p class="fineprint">Free · macOS 14+ · Apple Silicon &amp; Intel · <span data-dl-meta>v1.0</span></p>
+
+        <!-- Hero demo: the panel -->
+        <div class="stage hero-stage">
+          <div class="window rw-window hero-window demo" id="demo-rewrite" role="img" aria-label="Animated demo: the sentence “can you check once why access is not coming” is typed. The Limaret panel shows a corrected version with the changes highlighted and three alternative phrasings. A pointer clicks copy on one of them and a Copied confirmation appears.">
+            <div class="titlebar">
+              <span class="lights"><i></i><i></i><i></i></span>
+              <span class="title">Limaret</span>
+            </div>
+            <div class="rw-body">
+              <div class="rw-editor">
+                <div class="rw-editor-head"><span>Current line</span><span class="rw-follow"><span class="pulse-dot"></span> following cursor</span></div>
+                <p class="rw-line"><span data-rw-line></span><span class="caret"></span></p>
+              </div>
+              <div class="rw-status" data-rw-status><span class="spinner"></span> Finding better ways to say it…</div>
+              <ol class="rw-cards">
+                <li class="rw-card is-corrected">
+                  <div class="rw-card-main">
+                    <span class="rw-tag">Corrected</span>
+                    <p><mark>Can</mark> you check why <mark>the</mark> access <mark>isn't</mark> coming <mark>through?</mark></p>
+                    <span class="rw-replace">Replace in editor</span>
+                  </div>
+                  <div class="rw-card-side"><kbd>⌘1</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
+                </li>
+                <li class="rw-card">
+                  <div class="rw-card-main">
+                    <span class="rw-tag">Alternative</span>
+                    <p>Could you check why access hasn't been granted?</p>
+                    <span class="rw-replace">Replace in editor</span>
+                  </div>
+                  <div class="rw-card-side"><kbd>⌘2</kbd><span class="rw-copy" data-rw-target><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
+                </li>
+                <li class="rw-card">
+                  <div class="rw-card-main">
+                    <span class="rw-tag">Alternative</span>
+                    <p>Can you please check why the user isn't getting access?</p>
+                    <span class="rw-replace">Replace in editor</span>
+                  </div>
+                  <div class="rw-card-side"><kbd>⌘3</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
+                </li>
+                <li class="rw-card">
+                  <div class="rw-card-main">
+                    <span class="rw-tag">Alternative</span>
+                    <p>Could you verify why the access is missing?</p>
+                    <span class="rw-replace">Replace in editor</span>
+                  </div>
+                  <div class="rw-card-side"><kbd>⌘4</kbd><span class="rw-copy"><svg><use href="#copy"/></svg><svg class="ok"><use href="#check"/></svg></span></div>
+                </li>
+              </ol>
+            </div>
+            <div class="toast" data-rw-toast><svg><use href="#check"/></svg> Copied</div>
+            <svg class="fake-cursor" data-cursor><use href="#cursor"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROUND-TRIP COMPARISON -->
+    <section class="section" id="compare">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">01 The round-trip</p>
+          <h2>Skip the chat <em>round-trip.</em></h2>
+          <p class="sub">Polishing one sentence shouldn't mean leaving what you're writing.</p>
+        </header>
+        <div class="compare demo" id="demo-compare">
+          <div class="cmp-row" data-cmp="usual" data-end="45">
+            <div class="cmp-head">
+              <span class="cmp-label">The usual way</span>
+              <span class="cmp-timer" aria-hidden="true"><span data-timer>0</span> s</span>
+              <span class="sr-only">Nine steps, about 45 seconds.</span>
+            </div>
+            <ol class="cmp-chips">
+              <li>Write</li><li>Copy</li><li>Open ChatGPT</li><li>Paste</li><li>Prompt</li><li>Wait</li><li>Copy</li><li>Switch back</li><li>Paste</li>
+            </ol>
+          </div>
+          <div class="cmp-row is-lim" data-cmp="lim" data-end="2">
+            <div class="cmp-head">
+              <span class="cmp-label">With Limaret</span>
+              <span class="cmp-timer" aria-hidden="true"><span data-timer>0</span> s</span>
+              <span class="sr-only">Three steps, about 2 seconds.</span>
+            </div>
+            <ol class="cmp-chips">
+              <li>Write</li><li>Choose</li><li class="final">Copy</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY IT'S DIFFERENT -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">02 Why it's different</p>
+          <h2>A sentence assistant, <em class="nowrap">not a chatbot.</em></h2>
+          <p class="sub">You already know what you want to say. Limaret helps you say it better, without interrupting you.</p>
+        </header>
+        <div class="features features-4">
+          <article class="card feature">
+            <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5" class="accent"/></svg></div>
+            <h3>Choices, not a verdict</h3>
+            <p>Don't let AI decide what you meant. Limaret fixes your sentence and lays out several alternatives side by side — clearer, shorter, friendlier, more professional. You choose how you sound.</p>
+          </article>
+          <article class="card feature">
+            <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4z"/><path d="M4 4l16 16" class="accent"/></svg></div>
+            <h3>No prompts. No chat.</h3>
+            <p>An AI writing assistant you don't have to talk to. Type the sentence; the suggestions are already there.</p>
+          </article>
+          <article class="card feature">
+            <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M9.5 10.5l1.8 1.8 3.4-3.6" class="accent"/></svg></div>
+            <h3>Local-first, for a reason</h3>
+            <p>Your writing includes work email, private notes and half-formed thoughts. By default Limaret runs on a local model via Ollama, so it doesn't need a trip to the cloud. Prefer OpenAI or Claude? Switch anytime.</p>
+          </article>
+          <article class="card feature">
+            <div class="tile" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8V20h3.2l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.3-.5-.5-2.3z"/><path d="M17 3v3M20 5h-3" class="accent"/></svg></div>
+            <h3>A utility, not a destination</h3>
+            <p>You shouldn't spend time in Limaret. Open the panel when you want choices, use the menu bar for quick fixes, or let autocomplete help without leaving your app.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTOCOMPLETE -->
+    <section class="section" id="autocomplete">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">03 Autocomplete</p>
+          <h2>And when you don't want to <em class="nowrap">stop at all.</em></h2>
+          <p class="sub">Limaret can also autocomplete right where you're typing, in any app. Press <kbd>Tab</kbd> to take a word.</p>
+        </header>
+        <div class="stage auto-stage">
+          <div class="window auto-window demo" id="demo-auto" role="img" aria-label="Animated demo: text types itself in a Mail compose window, a faint grey prediction appears at the cursor, and pressing Tab accepts it word by word.">
+            <div class="titlebar">
+              <span class="lights"><i></i><i></i><i></i></span>
+              <span class="title" data-hero-title>New Message</span>
+              <span class="tb-right" data-hero-app>Mail</span>
+            </div>
+            <div class="hero-head" data-hero-head>
+              <div class="field"><span>To:</span> sam@example.com</div>
+              <div class="field"><span>Subject:</span> Onboarding review</div>
+            </div>
+            <div class="compose">
+              <p class="compose-title" data-hero-notetitle hidden>Lisbon trip</p>
+              <p class="compose-text"><span class="typed" data-typed></span><span class="caret" data-caret></span><span class="ghost" data-ghost></span></p>
+            </div>
+            <div class="hint-bar">
+              <span class="status"><span class="pulse-dot"></span> Limaret · Local</span>
+              <span class="hints">
+                <span class="hint"><kbd class="key" data-key="tab">⇥ Tab</kbd><span class="hint-l">word</span></span>
+                <span class="hint"><kbd class="key" data-key="right">→</kbd><span class="hint-l">word at line end</span></span>
+                <span class="hint"><kbd class="key" data-key="opt">⌥ ⇥</kbd><span class="hint-l">everything</span></span>
+              </span>
+            </div>
+          </div>
+          <ul class="apps-row" aria-label="Works in apps like">
+            <li data-app="Mail">Mail</li><li data-app="Notes">Notes</li><li>Slack</li><li>Safari</li><li>Chrome</li><li>Messages</li><li class="more">and more</li>
+          </ul>
+        </div>
+
+        <div class="shortcuts" id="shortcuts">
+          <h3 class="shortcuts-title">Five keys. That's the whole manual.</h3>
+          <ul class="keys demo" id="demo-keys">
+            <li class="card keycard"><span class="keycaps"><kbd class="cap cap-wide">⇥ Tab</kbd></span><b>Accept next word</b><small>Take the prediction one word at a time.</small></li>
+            <li class="card keycard"><span class="keycaps"><kbd class="cap">⌥</kbd><kbd class="cap cap-wide">⇥ Tab</kbd></span><b>Accept everything</b><small>Take the whole suggestion at once.</small></li>
+            <li class="card keycard"><span class="keycaps"><kbd class="cap">→</kbd></span><b>Accept a word</b><small>At the end of a line, → works like Tab.</small></li>
+            <li class="card keycard"><span class="keycaps"><kbd class="cap">esc</kbd></span><b>Dismiss</b><small>Or simply keep typing — matching letters are absorbed.</small></li>
+            <li class="card keycard"><span class="keycaps"><kbd class="cap">⌘</kbd><kbd class="cap">1</kbd></span><b>Copy a suggestion</b><small>⌘1–⌘9 copy suggestions in the panel.</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU BAR -->
+    <section class="section section-alt" id="menubar">
+      <!-- Menu bar -->
+      <div class="container split split-rev">
+        <div class="split-copy">
+          <p class="kicker">04 Menu bar</p>
+          <h2>One click away, <em>never in the way.</em></h2>
+          <p class="sub">Limaret sits quietly in your menu bar. Open the popover to draft or fix a sentence on the spot, grab a suggestion, and get back to work.</p>
+        </div>
+        <div class="stage">
+          <div class="desk demo" id="demo-menubar" role="img" aria-label="Animated demo: the pointer clicks the Limaret icon in the macOS menu bar, a popover drops down with a small editor, a sentence is typed and suggestions appear below it.">
+            <div class="menubar">
+              <span class="mb-left"><svg class="mb-apple" viewBox="0 0 24 24"><use href="#apple-dl"/></svg><b>Mail</b><span>File</span><span>Edit</span><span class="mb-hide">View</span><span class="mb-hide">Mailbox</span></span>
+              <span class="mb-right">
+                <span class="mb-icon" data-mb-icon><svg><use href="#glyph"/></svg></span>
+                <svg class="mb-sys" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5a14 14 0 0 1 19 0M5.5 12.7a9.5 9.5 0 0 1 13 0M8.6 15.8a5 5 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+                <svg class="mb-sys mb-hide" viewBox="0 0 28 24" aria-hidden="true"><rect x="1.5" y="6.5" width="22" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3.5" y="8.5" width="15" height="7" rx="1.5" fill="currentColor"/><rect x="24.5" y="10" width="2" height="4" rx="1" fill="currentColor"/></svg>
+                <span class="mb-time">Sat 9:41</span>
+              </span>
+            </div>
+            <div class="desk-window" aria-hidden="true"><div class="dw-bar"><span class="lights"><i></i><i></i><i></i></span></div><div class="dw-lines"><i></i><i></i><i></i><i></i></div></div>
+            <div class="popover" data-mb-pop>
+              <div class="pop-head"><svg class="pop-logo"><use href="#logo"/></svg> Limaret <span class="pop-chip"><span class="pulse-dot"></span> Local</span></div>
+              <p class="pop-editor"><span data-mb-text></span><span class="caret"></span></p>
+              <div class="pop-sugs">
+                <div class="pop-sug" data-mb-sug><span class="rw-tag">Corrected</span><p><mark>Let's</mark> grab lunch <mark>tomorrow</mark> at 1? <mark>My</mark> treat.</p><kbd>⌘1</kbd></div>
+                <div class="pop-sug" data-mb-sug><span class="rw-tag">Alternative</span><p>Want to get lunch tomorrow at 1? It's on me.</p><kbd>⌘2</kbd></div>
+              </div>
+            </div>
+            <svg class="fake-cursor" data-cursor><use href="#cursor"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="section" id="privacy">
+      <div class="container split">
+        <div class="split-copy">
+          <p class="kicker">05 Privacy</p>
+          <h2>Your words stay on your Mac. <em>Unless you say otherwise.</em></h2>
+          <p class="sub">By default Limaret talks to a model running locally through Ollama — no servers, no account, nothing sent over the network. Want a bigger model? Connect OpenAI or Claude with your own key. You choose, and you can switch anytime.</p>
+          <ul class="checks">
+            <li>Local mode via <strong>Ollama</strong> — fully on-device</li>
+            <li><strong>OpenAI</strong> (sign in to pick up your key) or <strong>Anthropic’s Claude</strong></li>
+            <li>Any <strong>OpenAI-compatible</strong> server: Groq, LM Studio, OpenRouter…</li>
+            <li>Clipboard and screen context are <strong>off unless you turn them on</strong>; OCR runs locally</li>
+          </ul>
+        </div>
+        <div class="stage">
+          <div class="prov card" id="demo-provider" data-mode="local">
+            <div class="seg" role="group" aria-label="Show provider">
+              <button type="button" class="seg-btn" data-mode="local" aria-pressed="true">Local · Ollama</button>
+              <button type="button" class="seg-btn" data-mode="cloud" aria-pressed="false">Cloud · OpenAI or Claude</button>
+              <span class="seg-thumb" aria-hidden="true"></span>
+            </div>
+            <div class="prov-stage" aria-hidden="true">
+              <div class="node node-mac">
+                <div class="node-top"><svg class="node-logo"><use href="#logo"/></svg><div><b>Your Mac</b><small>Limaret</small></div></div>
+                <div class="onchip"><span class="ring"></span>On-device model</div>
+                <div class="node-row">Ollama · localhost:11434</div>
+              </div>
+              <div class="wire"><i></i><i></i><i></i><span class="wire-off">no network</span></div>
+              <div class="node node-cloud">
+                <div class="node-top"><span class="cloud-ico"><svg viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .6-8 6 6 0 0 0-11.4 1.5A3.3 3.3 0 0 0 7 18Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><div><b>OpenAI or Claude</b><small>cloud API</small></div></div>
+                <div class="node-row">Your key · your account</div>
+                <div class="node-idle">Not used</div>
+              </div>
+            </div>
+            <p class="prov-caption" aria-live="polite" data-prov-caption>Everything runs on your Mac. 0 bytes leave your machine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section section-alt" id="how">
+      <div class="container">
+        <header class="section-head">
+          <p class="kicker">06 How it works</p>
+          <h2>Up and running in <em>about a minute.</em></h2>
+        </header>
+        <ol class="steps">
+          <li class="card step">
+            <span class="step-n">1</span>
+            <h3>Download &amp; drag to Applications</h3>
+            <p>Open the DMG and drop Limaret into your Applications folder. First launch? See the <a href="#faq-open">note on opening apps</a> that aren't notarized yet.</p>
+          </li>
+          <li class="card step">
+            <span class="step-n">2</span>
+            <h3>Grant two permissions</h3>
+            <p><strong>Accessibility</strong> lets Limaret read the line you're writing and where your caret is. <strong>Input Monitoring</strong> lets it catch <kbd>Tab</kbd>. Screen Recording is optional — only for on-screen context.</p>
+          </li>
+          <li class="card step">
+            <span class="step-n">3</span>
+            <h3>Pick local or cloud</h3>
+            <p>Use a local model with <a href="https://ollama.com" rel="noopener">Ollama</a> for full privacy, or sign in with OpenAI in a couple of clicks. Then just write.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container narrow">
+        <header class="section-head">
+          <p class="kicker">07 FAQ</p>
+          <h2>Questions, <em>answered.</em></h2>
+        </header>
+        <div class="faq">
+          <details>
+            <summary>Why does it need Accessibility and Input Monitoring?</summary>
+            <p>To show a prediction at your caret, Limaret has to know which text field is focused, what's in it, and where the caret is — macOS only exposes that through the Accessibility permission. Input Monitoring lets it notice <kbd>Tab</kbd>, <kbd>⌥ Tab</kbd> and <kbd>→</kbd> so it can accept a suggestion instead of inserting a tab. Both are required; Screen Recording is optional and only used if you enable on-screen context.</p>
+          </details>
+          <details>
+            <summary>Does my text leave my Mac?</summary>
+            <p>Not in local mode. With Ollama, the model runs on your machine and requests go to <code>localhost</code>. If you switch to OpenAI, Anthropic, or another server, the text you're writing — plus clipboard or screen context, if you've turned those on — is sent to that provider using your own key. Screen text is read with on-device OCR either way.</p>
+          </details>
+          <details>
+            <summary>Which models work?</summary>
+            <p>Locally, any chat model you've pulled in <a href="https://ollama.com" rel="noopener">Ollama</a> — smaller, fast models feel best for autocomplete. In the cloud, OpenAI and Anthropic models via your API key, or any OpenAI-compatible endpoint such as Groq, LM Studio, or OpenRouter.</p>
+          </details>
+          <details id="faq-open">
+            <summary>macOS says “Limaret can't be opened.” What do I do?</summary>
+            <p>Limaret isn't notarized by Apple yet, so Gatekeeper is cautious on first launch. Either <strong>right-click (or Control-click) the app in Applications → Open</strong>, then confirm; or try to open it once, then go to <strong>System Settings › Privacy &amp; Security</strong>, scroll down and click <strong>Open Anyway</strong>. You only need to do this once.</p>
+          </details>
+          <details>
+            <summary>Does it work in every app?</summary>
+            <p>It works in most apps that use standard macOS text fields — Mail, Notes, Messages, Slack, browsers and more. Some apps with fully custom editors don't report their caret position to macOS; there, the panel still works on the current line.</p>
+          </details>
+          <details>
+            <summary>What do I need to run it?</summary>
+            <p>macOS 14 Sonoma or later. Apple Silicon is recommended, especially for local models. For local mode, install <a href="https://ollama.com" rel="noopener">Ollama</a> and pull a model. Limaret itself is free.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section final">
+      <div class="container">
+        <div class="final-card">
+          <svg class="final-logo" aria-hidden="true"><use href="#logo"/></svg>
+          <h2>Just <em>write.</em></h2>
+          <p class="sub">Limaret handles the phrasing.</p>
+          <a class="btn btn-primary btn-lg" href="downloads/Limaret.dmg" data-dl download>
+            <svg class="i" aria-hidden="true"><use href="#apple-dl"/></svg>
+            Download for macOS
+          </a>
+          <p class="fineprint"><span data-dl-meta>v1.0</span> · macOS 14 Sonoma or later · On iPhone? <a href="app/">Open the web app</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
+        <span>Limaret</span>
+      </a>
+      <p>Made for the Mac. Your words, your model.</p>
+      <ul class="footer-links">
+        <li><a href="#features">Why Limaret</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

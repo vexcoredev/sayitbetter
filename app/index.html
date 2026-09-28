@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Limaret</title>
+  <meta name="description" content="Say it better. Grammar fixes and better phrasings for what you type — on your iPhone.">
+  <meta name="theme-color" content="#0E0F11">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Limaret">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="seg" role="group" aria-label="What to improve">
+      <button type="button" class="seg-btn" data-scope="line" aria-pressed="true">Line</button>
+      <button type="button" class="seg-btn" data-scope="all" aria-pressed="false">All</button>
+    </div>
+    <button type="button" class="chip" id="model-chip" aria-label="AI provider settings">
+      <span class="dot" id="model-dot"></span><span id="model-name">Not set up</span>
+    </button>
+    <button type="button" class="icon-btn" id="settings-btn" aria-label="Settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="editor-card">
+      <textarea id="editor" placeholder="Type or paste a sentence…" autocapitalize="sentences" spellcheck="true" rows="5" aria-label="Your text"></textarea>
+      <div class="editor-tools">
+        <button type="button" class="tool" id="paste-btn">Paste</button>
+        <button type="button" class="tool" id="clear-btn">Clear</button>
+        <button type="button" class="tool" id="refresh-btn" aria-label="Get new suggestions">Refresh</button>
+      </div>
+    </div>
+
+    <section id="results" aria-live="polite"></section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <dialog id="settings" aria-labelledby="settings-title">
+    <form method="dialog" class="sheet" id="settings-form">
+      <div class="sheet-head">
+        <h2 id="settings-title">AI provider</h2>
+        <button class="link" value="cancel" formnovalidate>Close</button>
+      </div>
+
+      <label class="field">
+        <span>Provider</span>
+        <select id="f-provider"></select>
+      </label>
+      <p class="hint" id="provider-hint"></p>
+
+      <label class="field" id="device-field">
+        <span>On-device model</span>
+        <select id="f-device-model"></select>
+      </label>
+
+      <label class="field" id="url-field">
+        <span>Server URL</span>
+        <input id="f-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="http://my-mac.local:11434/v1">
+      </label>
+      <label class="field" id="key-field">
+        <span>API key</span>
+        <input id="f-key" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="sk-…">
+      </label>
+      <label class="field" id="model-field">
+        <span>Model</span>
+        <input id="f-model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" list="model-list">
+        <datalist id="model-list"></datalist>
+      </label>
+      <label class="field">
+        <span>Alternatives</span>
+        <select id="f-alts">
+          <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+        </select>
+      </label>
+
+      <p class="hint" id="key-hint">Your key is stored only in this browser on this device and sent only to the provider above.</p>
+      <p class="status" id="verify-status"></p>
+
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-ghost" id="verify-btn">Test connection</button>
+        <button type="submit" class="btn btn-primary" value="save" id="save-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="empty-tpl">
+    <div class="empty">
+      <div class="empty-icon" aria-hidden="true">A<span class="caret"></span></div>
+      <p>Fixes and fresh phrasings show up here as you type.</p>
+    </div>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
