@@ -25,7 +25,11 @@ const PROVIDERS = {
     short: "Gemini",
     kind: "openai",
     url: "https://generativelanguage.googleapis.com/v1beta/openai",
-    model: "gemini-2.5-flash-lite",
+    models: [
+      { id: "gemini-3.5-flash-lite", label: "Gemini 3.5 Flash-Lite · fastest" },
+      { id: "gemini-3.1-flash-lite", label: "Gemini 3.1 Flash-Lite" },
+      { id: "gemini-3.8-flash", label: "Gemini 3.8 Flash · smartest" },
+    ],
     keyUrl: "https://aistudio.google.com/apikey",
     hint: "Fast and good. Get a free key at Google AI Studio (sign in with a Google account).",
   },
@@ -34,7 +38,11 @@ const PROVIDERS = {
     short: "Groq",
     kind: "openai",
     url: "https://api.groq.com/openai/v1",
-    model: "llama-3.1-8b-instant",
+    models: [
+      { id: "openai/gpt-oss-20b", label: "GPT-OSS 20B · fastest" },
+      { id: "llama-3.3-70b-versatile", label: "Llama 3.3 70B" },
+      { id: "openai/gpt-oss-120b", label: "GPT-OSS 120B · smartest" },
+    ],
     keyUrl: "https://console.groq.com/keys",
     hint: "Very fast open models. Get a free key from the Groq console.",
   },
@@ -43,7 +51,11 @@ const PROVIDERS = {
     short: "OpenAI",
     kind: "openai",
     url: "https://api.openai.com/v1",
-    model: "gpt-4o-mini",
+    models: [
+      { id: "gpt-6-luna", label: "GPT-6 Luna · cheapest" },
+      { id: "gpt-6-sol", label: "GPT-6 Sol" },
+      { id: "gpt-6-astra", label: "GPT-6 Astra · smartest" },
+    ],
     keyUrl: "https://platform.openai.com/api-keys",
     hint: "Paid, per use. Create a key on the OpenAI platform.",
   },
@@ -52,7 +64,11 @@ const PROVIDERS = {
     short: "Claude",
     kind: "anthropic",
     url: "https://api.anthropic.com",
-    model: "claude-haiku-4-5-20251001",
+    models: [
+      { id: "claude-haiku-4-5-20251001", label: "Claude Haiku 4.5 · fastest" },
+      { id: "claude-sonnet-5", label: "Claude Sonnet 5" },
+      { id: "claude-opus-5-5", label: "Claude Opus 5.5 · smartest" },
+    ],
     keyUrl: "https://console.anthropic.com/settings/keys",
     hint: "Paid, per use. Create a key in the Anthropic console.",
   },
@@ -61,11 +77,17 @@ const PROVIDERS = {
     short: "Custom",
     kind: "openai",
     url: "",
-    model: "",
     keyOptional: true,
     hint: "Any OpenAI-compatible server. For Ollama on your Mac, run it with OLLAMA_HOST=0.0.0.0 OLLAMA_ORIGINS=* and enter http://<your-mac>.local:11434/v1 — this only works when the app is opened over http, on the same Wi-Fi.",
   },
 };
+
+// Earlier defaults (since retired or restricted). The sheet used to save the default as if chosen,
+// so a saved one is treated as unchosen and follows the provider's current default.
+const OLD_DEFAULTS = ["llama-3.1-8b-instant", "gemini-2.5-flash-lite", "gpt-4o-mini"];
+
+/** The provider's default model: the first in its list. */
+const defaultModel = (p) => p.models?.[0]?.id || "";
 
 // MARK: Settings (this browser only)
 
@@ -82,6 +104,8 @@ function save(key, value) {
 let settings = Object.assign({ provider: "gemini", alts: 3, scope: "line", deviceModel: DEVICE_MODELS[0].id, per: {} },
                              load(STORE, {}));
 
+const liveModel = (m) => (OLD_DEFAULTS.includes(m) ? "" : m);
+
 function config() {
   const p = PROVIDERS[settings.provider] || PROVIDERS.gemini;
   const own = settings.per[settings.provider] || {};
@@ -90,7 +114,7 @@ function config() {
     ...p,
     url: own.url ?? p.url ?? "",
     key: own.key ?? "",
-    model: p.kind === "webllm" ? settings.deviceModel : (own.model || p.model || ""),
+    model: p.kind === "webllm" ? settings.deviceModel : (liveModel(own.model) || defaultModel(p)),
     alts: Number(settings.alts) || 3,
   };
 }
@@ -158,7 +182,7 @@ function errorText({ json, text }) {
 
 function friendlyHTTP(c, r) {
   const msg = errorText(r);
-  if (r.status === 401 || r.status === 403 || /api[ _-]?key/i.test(msg)) return `${c.short} rejected the API key. Check it in Settings.`;
+  if (r.status === 401 || r.status === 403 || /api[ _-]?key/i.test(msg)) return `${c.short} rejected the API key (HTTP ${r.status}${msg ? " — " + msg : ""}). Check it in Settings.`;
   if (r.status === 429) return `${c.short} rate limit reached. Wait a moment and try again.`;
   return `${c.short}: HTTP ${r.status}${msg ? " — " + msg : ""}`;
 }
@@ -543,15 +567,16 @@ $("#refresh-btn").addEventListener("click", () => refresh(true));
 const dlg = $("#settings");
 const f = {
   provider: $("#f-provider"), device: $("#f-device-model"), url: $("#f-url"), key: $("#f-key"),
-  model: $("#f-model"), alts: $("#f-alts"), status: $("#verify-status"),
+  model: $("#f-model"), pick: $("#f-model-pick"), alts: $("#f-alts"), status: $("#verify-status"),
 };
 f.provider.innerHTML = Object.entries(PROVIDERS).map(([id, p]) => `<option value="${id}">${esc(p.label)}</option>`).join("");
 f.device.innerHTML = DEVICE_MODELS.map((m) => `<option value="${m.id}">${esc(m.label)}</option>`).join("");
 
 let draft; // settings being edited in the sheet
+let shown; // provider whose fields the sheet shows; the menu already holds the new one when it changes
 
 function fillSheet() {
-  const id = f.provider.value;
+  const id = shown = f.provider.value;
   const p = PROVIDERS[id];
   const own = draft.per[id] || {};
   $("#provider-hint").innerHTML = esc(p.hint) + (p.keyUrl ? ` <a href="${p.keyUrl}" target="_blank" rel="noopener">Get a key ↗</a>` : "");
@@ -563,8 +588,15 @@ function fillSheet() {
   f.url.value = own.url ?? p.url ?? "";
   f.key.value = own.key ?? "";
   f.key.placeholder = id === "custom" ? "Optional" : id === "gemini" ? "AIza…" : id === "groq" ? "gsk_…" : "sk-…";
-  f.model.value = own.model || p.model || "";
-  f.model.placeholder = id === "custom" ? "e.g. qwen2.5:1.5b" : "";
+  const model = liveModel(own.model) || defaultModel(p);
+  const listed = (p.models || []).some((m) => m.id === model);
+  f.pick.innerHTML = (p.models || []).map((m) => `<option value="${esc(m.id)}">${esc(m.label)}</option>`).join("")
+    + `<option value="">Other…</option>`;
+  f.pick.value = listed ? model : "";
+  f.pick.hidden = !p.models;
+  f.model.value = listed ? "" : model;
+  f.model.hidden = Boolean(p.models) && listed;
+  f.model.placeholder = id === "custom" ? "e.g. qwen2.5:1.5b" : "Model id";
   f.device.value = draft.deviceModel;
   $("#model-list").innerHTML = "";
   f.status.textContent = id === "device" && !hasWebGPU() ? "This browser doesn’t support WebGPU, so on-device models won’t run here." : "";
@@ -572,13 +604,18 @@ function fillSheet() {
 }
 
 function readSheet() {
-  const id = f.provider.value;
-  draft.provider = id;
+  const id = shown;
+  draft.provider = f.provider.value;
   draft.alts = Number(f.alts.value);
   draft.deviceModel = f.device.value;
   if (!PROVIDERS[id].fixed) {
-    draft.per[id] = { key: f.key.value.trim(), model: f.model.value.trim(), ...(id === "custom" ? { url: f.url.value.trim() } : {}) };
+    draft.per[id] = { key: cleanKey(f.key.value), model: f.pick.hidden || !f.pick.value ? f.model.value.trim() : f.pick.value, ...(id === "custom" ? { url: f.url.value.trim() } : {}) };
   }
+}
+
+/** Pasted keys often carry invisible characters, quotes or a "Bearer " prefix that make the provider reject them. */
+function cleanKey(s) {
+  return s.replace(/[\s​-‍⁠﻿]/g, "").replace(/^["'“”‘’]+|["'“”‘’]+$/g, "").replace(/^Bearer/i, "");
 }
 
 function openSettings() {
@@ -590,6 +627,10 @@ function openSettings() {
 }
 
 f.provider.addEventListener("change", () => { readSheet(); fillSheet(); });
+f.pick.addEventListener("change", () => {
+  f.model.hidden = Boolean(f.pick.value);
+  if (!f.pick.value) f.model.focus();
+});
 $("#settings-btn").addEventListener("click", openSettings);
 $("#model-chip").addEventListener("click", openSettings);
 
