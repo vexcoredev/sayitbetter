@@ -1,4 +1,4 @@
-// Limaret web app: the Mac app's suggestions panel, for phones.
+// Say It Better web app: the Mac app's suggestions panel, for phones.
 // Prompts and parsing mirror Sources/Shared/LLMClient.swift so both give the same results.
 
 const $ = (s) => document.querySelector(s);
@@ -69,7 +69,7 @@ const PROVIDERS = {
 
 // MARK: Settings (this browser only)
 
-const STORE = "limaret.settings";
+const STORE = "limaret.settings"; // pre-rename key; kept so saved settings survive
 const DRAFT = "limaret.draft";
 
 function load(key, fallback) {

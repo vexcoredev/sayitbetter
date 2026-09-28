@@ -1,6 +1,6 @@
 {
-  "name": "Limaret — Say it better",
-  "short_name": "Limaret",
+  "name": "Say It Better",
+  "short_name": "Say It Better",
   "description": "Grammar fixes and better phrasings for what you type.",
   "start_url": "./",
   "scope": "./",

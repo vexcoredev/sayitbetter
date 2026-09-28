@@ -1,4 +1,4 @@
-/* Limaret — landing page demos. No dependencies. */
+/* Say It Better — landing page demos. No dependencies. */
 (() => {
   "use strict";
 
@@ -191,7 +191,7 @@
   }
 
   /* ---------------------------------------------------------------
-   * 2. Limaret (rewrite) panel
+   * 2. Say It Better (rewrite) panel
    * ------------------------------------------------------------- */
   function rewriteDemo() {
     const root = $("#demo-rewrite");
