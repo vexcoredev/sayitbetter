@@ -12,7 +12,17 @@ const DEVICE_MODELS = [
   { id: "gemma3-1b-it-q4f16_1-MLC", label: "Better · Google Gemma 3 1B (~700 MB)" },
 ];
 
+// Say It Better's own server (server/ in the Mac app repo): Groq with our key, so it works without one.
+const BUILTIN_URL = "https://sayitbetter-api.vercel.app/api/suggest";
+
 const PROVIDERS = {
+  builtin: {
+    label: "Built-in · free, no key needed",
+    short: "Built-in",
+    kind: "builtin",
+    noKey: true, fixed: true,
+    hint: "Works right away. Your text is sent to Groq through Say It Better’s server to get suggestions, and isn’t stored. It’s shared by everyone, so it can get busy — for heavy use, add your own free key (Gemini or Groq).",
+  },
   device: {
     label: "On this device · private, offline",
     short: "On-device",
@@ -101,13 +111,13 @@ function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
 }
 
-let settings = Object.assign({ provider: "gemini", alts: 3, scope: "line", deviceModel: DEVICE_MODELS[0].id, per: {} },
+let settings = Object.assign({ provider: "builtin", alts: 3, scope: "line", deviceModel: DEVICE_MODELS[0].id, per: {} },
                              load(STORE, {}));
 
 const liveModel = (m) => (OLD_DEFAULTS.includes(m) ? "" : m);
 
 function config() {
-  const p = PROVIDERS[settings.provider] || PROVIDERS.gemini;
+  const p = PROVIDERS[settings.provider] || PROVIDERS.builtin;
   const own = settings.per[settings.provider] || {};
   return {
     id: settings.provider,
@@ -120,7 +130,7 @@ function config() {
 }
 
 function isReady(c = config()) {
-  if (c.kind === "webllm") return true;
+  if (c.kind === "webllm" || c.kind === "builtin") return true;
   if (!c.noKey && !c.keyOptional && !c.key) return false;
   return Boolean(c.endpoint || c.url) && Boolean(c.model);
 }
@@ -267,8 +277,19 @@ function chat(c, system, turns, opts, signal) {
   return openAIChat(c, system, turns, opts, signal);
 }
 
+/** The built-in provider sends only the text; the server builds the same prompt. */
+async function builtinChat(text, n, signal) {
+  const r = await post(BUILTIN_URL, { text, n }, {}, signal);
+  if (r.status !== 200) throw new LLMError(errorText(r) || `Built-in AI: HTTP ${r.status}`);
+  const content = r.json?.content;
+  if (typeof content !== "string") throw new LLMError("The model returned something that couldn’t be parsed. Try again.");
+  return content;
+}
+
 async function suggest(text, c, signal) {
-  const raw = await chat(c, systemPrompt(c.alts), turnsFor(text, c.alts), { temperature: 0.6 }, signal);
+  const raw = c.kind === "builtin"
+    ? await builtinChat(text, c.alts, signal)
+    : await chat(c, systemPrompt(c.alts), turnsFor(text, c.alts), { temperature: 0.6 }, signal);
   return parse(raw, text);
 }
 
@@ -424,8 +445,12 @@ function render() {
   if (!isReady(c)) {
     results.innerHTML = `<div class="setup">
       <h2>Pick your <em>free</em> AI</h2>
-      <p>Both are free. You can switch any time in Settings.</p>
+      <p>All free. You can switch any time in Settings.</p>
       <div class="choices">
+        <button type="button" class="choice" data-choose="builtin">
+          <strong>Built-in · no key</strong>
+          <span>Works right away. Your text goes to Groq through Say It Better’s server and isn’t stored.</span>
+        </button>
         <button type="button" class="choice" data-choose="gemini">
           <strong>Google Gemini</strong>
           <span>Fast and polished. Needs a free key from Google AI Studio — takes a minute. Your text goes to Google.</span>
@@ -527,7 +552,7 @@ results.addEventListener("click", (e) => {
   if (choice) {
     settings.provider = choice.dataset.choose;
     save(STORE, settings);
-    if (settings.provider === "device") { refresh(true); editor.focus(); } else openSettings();
+    if (settings.provider === "device" || settings.provider === "builtin") { refresh(true); editor.focus(); } else openSettings();
     return;
   }
   if (e.target.closest("[data-retry]")) return refresh(true);
