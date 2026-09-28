@@ -453,6 +453,16 @@
       .catch(() => {});
   }
 
+  /* ---------------------------------------------------------------
+   * After a download starts: show how to get past Gatekeeper
+   * ------------------------------------------------------------- */
+  function downloadGuide() {
+    const dlg = $("#dl-guide");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    $$("[data-dl]").forEach((a) => a.addEventListener("click", () => setTimeout(() => dlg.showModal(), 400)));
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  }
+
   heroDemo();
   rewriteDemo();
   menubarDemo();
@@ -460,4 +470,5 @@
   keysDemo();
   compareDemo();
   downloadMeta();
+  downloadGuide();
 })();

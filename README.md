@@ -74,10 +74,10 @@ Everything above, plus features that only a native app can do:
 **Install:** download [SayItBetter.dmg](https://vexcoredev.github.io/sayitbetter/downloads/SayItBetter.dmg), open it and drag
 **Say It Better** into Applications.
 
-> [!NOTE]
-> The app isn't notarized by Apple yet, so macOS blocks the first launch. Right-click (or Control-click) the app in
-> Applications → **Open**, then confirm. Or try opening it once, then go to **System Settings → Privacy & Security** and
-> click **Open Anyway**.
+> [!IMPORTANT]
+> **Required on first launch.** The app isn't notarized by Apple yet, so macOS says *“Apple could not verify Say It
+> Better…”*. Click **Done** (not Move to Bin), then go to **System Settings → Privacy & Security**, scroll down, click
+> **Open Anyway** and confirm. You only do this once. (On macOS 15 and later, right-click → Open no longer skips it.)
 
 On first launch it asks for two permissions, used only for autocomplete. **Accessibility** lets it read the line you're
 typing and where your cursor is. **Input Monitoring** lets it catch <kbd>⇥</kbd>. The suggestions panel works without either.
