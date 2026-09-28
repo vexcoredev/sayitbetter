@@ -21,7 +21,7 @@ const PROVIDERS = {
     short: "Built-in",
     kind: "builtin",
     noKey: true, fixed: true,
-    hint: "Works right away, nothing to set up. Your text is sent securely through Say It Better’s server to get suggestions, and is never stored. Want to use your own AI instead? Add a free Gemini or Groq key anytime.",
+    hint: "Works right away. Your text goes to Groq through Say It Better’s server and isn’t stored.",
   },
   device: {
     label: "On this device · private, offline",
