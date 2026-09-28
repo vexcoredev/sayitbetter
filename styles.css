@@ -360,6 +360,11 @@ mark { background: var(--grad); color: var(--on-lime); border-radius: 3px; paddi
 .step h3 { font-size: 19px; margin: 20px 0 10px; }
 .step p { color: var(--muted); font-size: 15px; }
 .step p strong { color: var(--text); font-weight: 600; }
+.mini-steps { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); font-size: 15px; }
+.mini-steps li::marker { color: var(--dim); font: 500 13px var(--mono); }
+.mini-steps strong { color: var(--text); font-weight: 600; }
+.step-foot { margin: 14px 0 0; font-size: 13.5px !important; color: var(--dim) !important; }
+.dl-steps kbd, .mini-steps kbd { font: 500 12px var(--mono); padding: 1px 6px; border-radius: 5px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); }
 .step-required { scroll-margin-top: 96px; border-color: rgba(242, 193, 78, .55); box-shadow: 0 0 0 1px rgba(242, 193, 78, .25) inset; }
 .step-required .step-n { color: var(--warn); border-color: rgba(242, 193, 78, .55); }
 .req-badge {

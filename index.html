@@ -350,18 +350,27 @@
         <ol class="steps">
           <li class="card step">
             <span class="step-n">1</span>
-            <h3>Download &amp; drag to Applications</h3>
-            <p>Open the DMG and drop Say It Better into your Applications folder.</p>
+            <h3>Install</h3>
+            <ol class="mini-steps">
+              <li>Open <strong>SayItBetter.dmg</strong> from your Downloads.</li>
+              <li>Drag the <strong>Say It Better</strong> icon onto the <strong>Applications</strong> folder in that window.</li>
+              <li>Open it: press <kbd>⌘</kbd> <kbd>Space</kbd>, type <strong>Say It Better</strong>, press <kbd>Return</kbd>.</li>
+            </ol>
           </li>
           <li class="card step step-required" id="open-guide">
             <span class="step-n">2</span><span class="req-badge">Required</span>
             <h3>Allow it to open</h3>
-            <p>Say It Better isn't notarized by Apple yet, so the first launch shows <strong>“Apple could not verify…”</strong>. Click <strong>Done</strong> — not Move to Bin. Then open <a href="x-apple.systempreferences:com.apple.preference.security"><strong>System Settings › Privacy &amp; Security</strong></a>, scroll down and click <strong>Open Anyway</strong>. Only once.</p>
+            <ol class="mini-steps">
+              <li>macOS says <strong>“Apple could not verify…”</strong>. Click <strong>Done</strong>, not Move to Bin.</li>
+              <li>Open <a href="x-apple.systempreferences:com.apple.preference.security"><strong>System Settings › Privacy &amp; Security</strong></a> and scroll to the bottom.</li>
+              <li>Click <strong>Open Anyway</strong> and confirm with your password or Touch ID. It opens.</li>
+            </ol>
+            <p class="step-foot">Only the first time — it's not notarized by Apple yet.</p>
           </li>
           <li class="card step">
             <span class="step-n">3</span>
-            <h3>Grant two permissions</h3>
-            <p><strong>Accessibility</strong> lets Say It Better read the line you're writing and where your caret is. <strong>Input Monitoring</strong> lets it catch <kbd>Tab</kbd>. Screen Recording is optional — only for on-screen context.</p>
+            <h3>Optional: autocomplete everywhere</h3>
+            <p>The panel and menu bar work right away, <strong>no permissions needed</strong>. Want grey suggestions as you type in Mail, Slack and other apps? Turn on autocomplete — during setup or anytime in Settings — and allow <strong>Accessibility</strong> and <strong>Input Monitoring</strong>.</p>
           </li>
           <li class="card step">
             <span class="step-n">4</span>
@@ -381,8 +390,8 @@
         </header>
         <div class="faq">
           <details>
-            <summary>Why does it need Accessibility and Input Monitoring?</summary>
-            <p>To show a prediction at your caret, Say It Better has to know which text field is focused, what's in it, and where the caret is — macOS only exposes that through the Accessibility permission. Input Monitoring lets it notice <kbd>Tab</kbd>, <kbd>⌥ Tab</kbd> and <kbd>→</kbd> so it can accept a suggestion instead of inserting a tab. Both are required; Screen Recording is optional and only used if you enable on-screen context.</p>
+            <summary>Does it need Accessibility and Input Monitoring?</summary>
+            <p>Only if you turn on autocomplete — the panel and menu bar need no permissions, and autocomplete is off until you switch it on. To show a prediction at your caret, Say It Better has to know which text field is focused, what's in it, and where the caret is — macOS only exposes that through the Accessibility permission. Input Monitoring lets it notice <kbd>Tab</kbd>, <kbd>⌥ Tab</kbd> and <kbd>→</kbd> so it can accept a suggestion instead of inserting a tab. Both are needed for autocomplete; Screen Recording is optional and only used if you enable on-screen context.</p>
           </details>
           <details>
             <summary>Does my text leave my Mac?</summary>
@@ -394,7 +403,7 @@
           </details>
           <details id="faq-open">
             <summary>macOS says “Apple could not verify Say It Better…” What do I do?</summary>
-            <p>That's expected: Say It Better isn't notarized by Apple yet, so macOS warns on first launch. Click <strong>Done</strong> (don't move it to the Bin), then open <strong>System Settings › Privacy &amp; Security</strong>, scroll down and click <strong>Open Anyway</strong>, and confirm with your password or Touch ID. You only need to do this once. On macOS 15 and later, right-click → Open no longer skips this.</p>
+            <p>That's expected: Say It Better isn't notarized by Apple yet. <strong>1.</strong> Click <strong>Done</strong> (not Move to Bin). <strong>2.</strong> Open <strong>System Settings › Privacy &amp; Security</strong> and scroll to the bottom. <strong>3.</strong> Click <strong>Open Anyway</strong> and confirm with your password or Touch ID. You only do this once. (On macOS 15 and later, right-click → Open no longer skips it.)</p>
           </details>
           <details>
             <summary>Does it work in every app?</summary>
@@ -445,12 +454,13 @@
     <form method="dialog" class="dl-guide-inner">
       <p class="kicker">Downloading · one more step</p>
       <h2 id="dl-guide-title">Before you open it</h2>
-      <p class="sub">macOS will warn that it can't verify Say It Better, because it isn't notarized by Apple yet. It's safe — here's how to open it. You only do this once.</p>
+      <p class="sub">Say It Better isn't notarized by Apple yet, so macOS shows a warning the first time. Follow these 4 steps — you only do this once.</p>
       <ol class="dl-steps">
-        <li><span class="step-n">1</span><div>Open <strong>SayItBetter.dmg</strong> and drag Say It Better into <strong>Applications</strong>, then open it.</div></li>
-        <li><span class="step-n">2</span><div>When macOS says <strong>“Apple could not verify…”</strong>, click <strong>Done</strong>.
+        <li><span class="step-n">1</span><div>Open <strong>SayItBetter.dmg</strong> from your Downloads and drag the <strong>Say It Better</strong> icon onto the <strong>Applications</strong> folder.</div></li>
+        <li><span class="step-n">2</span><div>Open it: press <kbd>⌘</kbd> <kbd>Space</kbd>, type <strong>Say It Better</strong>, press <kbd>Return</kbd>.</div></li>
+        <li><span class="step-n">3</span><div>macOS says <strong>“Apple could not verify…”</strong>. Click <strong>Done</strong>, not Move to Bin.
           <div class="mock-alert" aria-hidden="true"><span class="mock-btn">Move to Bin</span><span class="mock-btn mock-ok">Done</span></div></div></li>
-        <li><span class="step-n">3</span><div>Open <strong>System Settings › Privacy &amp; Security</strong>, scroll down, click <strong>Open Anyway</strong> and confirm.</div></li>
+        <li><span class="step-n">4</span><div>Open <strong>System Settings › Privacy &amp; Security</strong>, scroll to the bottom, click <strong>Open Anyway</strong> and confirm with your password or Touch ID. It opens — you're done.</div></li>
       </ol>
       <div class="dl-guide-actions">
         <a class="btn btn-ghost" href="x-apple.systempreferences:com.apple.preference.security">Open Privacy &amp; Security</a>
