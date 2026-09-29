@@ -1,5 +1,5 @@
 // Offline shell for the Say It Better web app. Bump VERSION when shipping changes.
-const VERSION = "limaret-app-v12"; // "limaret-" prefix predates the rename; kept so old caches are cleaned up
+const VERSION = "limaret-app-v13"; // "limaret-" prefix predates the rename; kept so old caches are cleaned up
 const SHELL = ["./", "index.html", "app.css", "app.js", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "../assets/logo.svg"];
 
 self.addEventListener("install", (e) => {

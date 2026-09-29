@@ -251,6 +251,32 @@ const device = { engine: null, model: null, loading: null, progress: null };
 
 function hasWebGPU() { return "gpu" in navigator; }
 
+// On-device models live in this browser's Cache Storage (WebLLM's "webllm/…" caches).
+async function deviceCaches() {
+  try { return (await caches.keys()).filter((k) => k.startsWith("webllm")); } catch { return []; }
+}
+
+async function showDeviceStorage() {
+  const row = $("#device-storage");
+  if ($("#device-field").hidden) { row.hidden = true; return; }
+  const names = await deviceCaches();
+  let used = 0;
+  try { used = (await navigator.storage.estimate()).usage || 0; } catch {}
+  row.hidden = false;
+  $("#device-storage-text").textContent = names.length
+    ? `Downloaded models use about ${used >= 1e9 ? (used / 1e9).toFixed(1) + " GB" : Math.max(1, Math.round(used / 1e6)) + " MB"} in this browser.`
+    : "Nothing downloaded yet.";
+  $("#device-clear").hidden = !names.length;
+}
+
+$("#device-clear").addEventListener("click", async () => {
+  if (!confirm("Delete the downloaded on-device models from this browser? You can download them again anytime.")) return;
+  if (device.engine) { try { await device.engine.unload(); } catch {} }
+  Object.assign(device, { engine: null, model: null, loading: null, progress: null });
+  for (const name of await deviceCaches()) { try { await caches.delete(name); } catch {} }
+  showDeviceStorage();
+});
+
 async function deviceEngine(model) {
   if (device.engine && device.model === model) return device.engine;
   if (device.loading && device.model === model) return device.loading;
@@ -727,6 +753,7 @@ function fillSheet() {
   const own = draft.per[id] || {};
   $("#provider-hint").innerHTML = esc(p.hint) + (p.keyUrl ? ` <a href="${p.keyUrl}" target="_blank" rel="noopener">Get a key ↗</a>` : "");
   $("#device-field").hidden = p.kind !== "webllm";
+  showDeviceStorage();
   $("#url-field").hidden = p.fixed || id !== "custom";
   $("#key-field").hidden = p.noKey;
   $("#key-hint").hidden = p.noKey;

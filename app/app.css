@@ -196,6 +196,8 @@ dialog[open]::backdrop { animation: fade-in .25s ease; }
 .sheet-actions { display: flex; gap: 10px; }
 .sheet-actions .btn { flex: 1; }
 .sheet-foot { text-align: center; }
+.device-storage { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.device-storage .link { font-size: 13px; padding: 0; white-space: nowrap; }
 [hidden] { display: none !important; }
 
 /* Toast */
